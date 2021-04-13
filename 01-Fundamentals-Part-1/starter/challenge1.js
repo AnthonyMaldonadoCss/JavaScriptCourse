@@ -55,9 +55,9 @@ let secondBmi = weight3 / height4 ** 2;
 typeof (firstBmi, secondBmi);
 
 if (firstBmi > secondBmi) {
-    console.log(userOne + " " + "Es el mas grande")
+    console.log(userOne + " " + "your BMI is higher")
 } else {
-    console.log(userTwo + " " + "Es el mas grande")
+    console.log(userTwo + " " + "your BMI is higher")
 }
 
 

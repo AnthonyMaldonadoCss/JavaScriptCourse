@@ -36,6 +36,7 @@ let year;
 console.log(year);
 console.log(typeof year);
 */
+/*
 let JavaScriptIsFun = false;
 
 if (JavaScriptIsFun == true) {
@@ -53,7 +54,7 @@ if (JavaScriptIsFun == true) {
             break;
     }
 }
-
+*/
 // > undefined
 
 /**
@@ -105,9 +106,9 @@ console.log(ageAnthony, ageHeczaid, averageAge);
 */
 
 /**
- *String and template literals 
+ *String and template literals
 */
-
+/*
 let firsName = "Anthony";
 let lastName = "Maldonado";
 let job = "Developer";
@@ -126,5 +127,42 @@ multiple \n\
 lines ')
 
 console.log(`String
-multiple 
+multiple
 lines`)
+*/
+
+/**
+ * 18. Taking desicions: if / else statements
+*/
+
+/*
+const age = 18;
+if (age >= 18) {
+    console.log(`Sarah can start driving licence`);
+} else {
+    const yearsLeft = 18 - age;
+    console.log(`Sarah is too young. Wait another ${yearsLeft} years`)
+}
+
+const birthYear = 1995;
+let century;
+
+if (birthYear <= 2000) {
+    century = 20;
+} else {
+    century = 21;
+}
+console.log(century);
+*/
+
+/**
+ * Type conversion and coercion
+ */
+
+const inputYear = '1991';
+
+console.log(Number(inputYear), inputYear);
+
+typeof (inputYear);
+
+console.log(inputYear + 18);

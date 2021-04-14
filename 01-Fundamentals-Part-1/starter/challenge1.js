@@ -33,6 +33,12 @@ let markBMI = marksWeights / marksWeights ** 2;
 
 let johnBMI = johnWeights / johnTall ** 2;
 
+let markHigherBMI = markBMI > johnBMI;
+
+console.log(markHigherBMI);
+
+//Extra
+
 if (markBMI > johnBMI) {
     let markHigherBMI = true;
     console.log(markHigherBMI);
@@ -40,6 +46,8 @@ if (markBMI > johnBMI) {
     let johnHigherBMI = false;
     console.log(johnHigherBMI);
 }
+
+//Extra 2
 
 let userOne = prompt("enter the first name to compare")
 let weight1 = Number(prompt(userOne + " " + "enter your weight"));

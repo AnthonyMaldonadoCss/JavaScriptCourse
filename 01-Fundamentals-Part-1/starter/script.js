@@ -249,3 +249,30 @@ if (favourite !== 23) {
 }
 */
 
+/**
+ * Logical Operators
+ */
+
+const hasDriverLicence = true;
+const hasGoodVision = true;
+
+// console.log(hasDriverLicence && hasGoodVision);
+// console.log(hasGoodVision || hasDriverLicence);
+// console.log(!hasDriverLicence);
+
+// if (hasDriverLicence && hasGoodVision) {
+//     console.log("Sarah is able to drive!");
+// } else {
+//     console.log("Someone else should drive");
+// }
+
+const isTired = false;
+
+console.log(hasDriverLicence && hasGoodVision && isTired);
+
+if (hasDriverLicence && hasGoodVision && !isTired) {
+    console.log("Sarah is able to drive!");
+} else {
+    console.log("Someone else should drive");
+}
+

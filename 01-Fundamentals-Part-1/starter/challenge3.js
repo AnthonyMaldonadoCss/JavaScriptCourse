@@ -26,6 +26,10 @@ Test data:
 GOOD LUCK 😀
  */
 
+/**
+ * Activity 1
+ */
+
 const scoreDolphinsGameA = 96;
 const scoreDolphinsGameB = 108;
 const scoreDolphinsGameC = 89;
@@ -48,7 +52,11 @@ console.log(`Average Koalas is: ${Math.round(averageKoalas)}`);
 
 console.log(`the score and average for the Dolphins is ${totalGameScoreDolphins} & ${Math.round(averageDolphins)},  the score and average for the Koalas is ${totalGameScoreKoalas} & ${Math.round(averageKoalas)}`);
 
-if (totalGameScoreDolphins > totalGameScoreKoalas) {
+/**
+ * Activity 2 
+ */
+
+if (averageDolphins > averageKoalas) {
     console.log(`dolphins win`)
 } else {
     console.log(`Koalas win`)
@@ -61,4 +69,32 @@ if (totalGameScoreDolphins === totalGameScoreKoalas) {
     console.log(`There was a tie for score and average`)
 } else {
     console.log(`there was no tie neither by score nor by average`)
+}
+
+/**
+ * Bonus 1
+ */
+
+if (totalGameScoreDolphins > totalGameScoreKoalas && totalGameScoreDolphins <= 100) {
+    console.log(`Dolphins win`)
+} else if (totalGameScoreKoalas > totalGameScoreDolphins && totalGameScoreKoalas <= 100) {
+    console.log(`Koalas Win`)
+} else {
+    console.log(`no one has passed the score, no one wins`)
+}
+
+/**
+ * Bonus 2
+ */
+
+let scoreGroupAll = totalGameScoreDolphins === totalGameScoreKoalas;
+
+let scoreTotalGroup = totalGameScoreDolphins <= 100 && totalGameScoreKoalas <= 100;
+
+console.log(scoreGroupAll, scoreTotalGroup);
+
+if (scoreGroupAll === true && scoreTotalGroup === true) {
+    console.log(`there was no tie `)
+} else {
+    console.log(`there was a tie for punctuation and for score `)
 }

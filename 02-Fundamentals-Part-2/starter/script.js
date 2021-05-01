@@ -83,36 +83,37 @@
  * Arrow fuctions
  */
 
-const calcAge2 = function (birthYear) {
-    return 2037 - birthYear;
-}
 
-const calcAge3 = birthYear => 2037 - birthYear;
+// const calcAge2 = function (birthYear) {
+//     return 2037 - birthYear;
+// }
+
+//const calcAge3 = birthYear => 2037 - birthYear;
 
 // the return is implicit
 
-const age3 = calcAge3(1995);
-console.log(age3);
+// const age3 = calcAge3(1995);
+// console.log(age3);
 
-const yearsUntilRetirement = (birthYear, firstName) => {
-    const agefull = 2037;
-    const retirement = 65;
+// const yearsUntilRetirement = (birthYear, firstName) => {
+//     const agefull = 2037;
+//     const retirement = 65;
 
-    let mathRetirement = agefull - birthYear;
-    let retirementFull = retirement - mathRetirement
+//     let mathRetirement = agefull - birthYear;
+//     let retirementFull = retirement - mathRetirement
 
-    return `${firstName} retires in ${retirementFull}`
+//     return `${firstName} retires in ${retirementFull}`
 
-    // return retirementFull;
-}
+//     // return retirementFull;
+// }
 
-console.log(yearsUntilRetirement(1995, "Anthony"))
-console.log(yearsUntilRetirement(1997, "Maria"))
+//console.log(yearsUntilRetirement(1995, "Anthony"))
+//console.log(yearsUntilRetirement(1997, "Maria"))
 
-const est = a =>
-    a * 3;
+// const est = a =>
+//     a * 3;
 
-console.log(est(2))
+// console.log(est(2))
 
 
 /**
@@ -120,17 +121,51 @@ console.log(est(2))
 */
 
 
-function cutFruitsPieces(fruits) {
-    return fruits * 4;
+// function cutFruitsPieces(fruits) {
+//     return fruits * 4;
+// }
+
+// function fruitProcessor(apples, oranges) {
+//     const applePieces = cutFruitsPieces(apples);
+//     const orangePieces = cutFruitsPieces(oranges);
+
+
+//     const juice = `Juice with ${applePieces} apples and ${orangePieces} oranges`
+//     return juice
+// }
+
+//console.log(fruitProcessor(4, 5))
+
+/**
+ * Reviewing functions
+ */
+
+const calcAge = function (birthYear) {
+    return 2037 - birthYear;
 }
 
-function fruitProcessor(apples, oranges) {
-    const applePieces = cutFruitsPieces(apples);
-    const orangePieces = cutFruitsPieces(oranges);
 
 
-    const juice = `Juice with ${applePieces} apples and ${orangePieces} oranges`
-    return juice
+const yearsUntilRetirement = function (birthYear, firstName) {
+    const agefull = calcAge(birthYear);
+    const retirement = 65;
+
+    let mathRetirement = agefull;
+    let retirementFull = retirement - mathRetirement
+
+    if (retirementFull > 0) {
+        console.log(`${firstName} retires in ${retirementFull}`);
+        return retirementFull;
+    } else {
+        console.log(`${firstName} has already retired`);
+        return -1;
+    }
+    // everything that is executed after the return will not be visible
+
+
+    //return `${firstName} retires in ${retirementFull}`
+    // return retirementFull;
 }
 
-console.log(fruitProcessor(4, 5))
+console.log(yearsUntilRetirement(1995, "Anthony"))
+console.log(yearsUntilRetirement(1750, "Anthony"))

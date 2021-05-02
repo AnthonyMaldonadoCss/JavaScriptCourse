@@ -48,6 +48,24 @@ const calcAverage = (s1, s2, s3) => {
 const averagefinalDolphins = calcAverage(dolphinScore1, dolphinScore2, dolphinScore3);
 const averagefinalKoalas = calcAverage(koalaScore1, koalaScore2, koalaScore3);
 
+
+const message = averagefinalDolphins > averagefinalKoalas;
+
+const messagefinal = (message) => {
+    if (message === true) {
+        console.log(`Average Dolphins is ${averagefinalDolphins}`)
+    } else {
+        console.log(`Average Koalas is ${averagefinalKoalas}`);
+    }
+}
+
+const callToaction = messagefinal(message)
+
+
+//console.log(typeof (message));
+
+
+
 const checkWinner = function (avgDolphins, avgKoalas) {
     const calc1 = avgDolphins * 2;
     const calc2 = avgKoalas * 2;
@@ -61,7 +79,7 @@ const checkWinner = function (avgDolphins, avgKoalas) {
 
 const winner = checkWinner(averagefinalDolphins, averagefinalKoalas);
 
-console.log(averagefinalKoalas, averagefinalDolphins);
+//console.log(callToaction);
 
 
 //console.log(calcAverage(dolphinScore1, dolphinScore2, dolphinScore3));

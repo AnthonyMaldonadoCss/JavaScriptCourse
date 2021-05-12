@@ -220,39 +220,114 @@
  * Basic Array operations
  */
 
-const friends = ['Michael', 'Steven', 'Peter']
+// const friends = ['Michael', 'Steven', 'Peter']
 
-//push method add elements to the end of the array
-const newLegth = friends.push('Ricardo')
-console.log(newLegth)
-console.log(friends);
+// //push method add elements to the end of the array
+// const newLegth = friends.push('Ricardo')
+// console.log(newLegth)
+// console.log(friends);
 
-// unshift method add elements to the beginning of the array
-friends.unshift('Heczaid');
-console.log(friends);
+// // unshift method add elements to the beginning of the array
+// friends.unshift('Heczaid');
+// console.log(friends);
 
 
 //remove
 
-friends.pop() //last
+// friends.pop() //last
 
-const popped = friends.pop();
-console.log(popped);
-console.log(friends);
+// const popped = friends.pop();
+// console.log(popped);
+// console.log(friends);
 
-friends.shift();
-console.log(friends);
+// friends.shift();
+// console.log(friends);
 
-console.log(friends.indexOf('Steven'));
-console.log(friends.indexOf('Anthony'));
+// console.log(friends.indexOf('Steven'));
+// console.log(friends.indexOf('Anthony'));
 
-friends.push(23);
-console.log(friends.includes('Steven'))
-console.log(friends.includes('Bob'));
-//Coercion type
-console.log(friends.includes('23'));
-console.log(friends.includes(23));
+// friends.push(23);
+// console.log(friends.includes('Steven'))
+// console.log(friends.includes('Bob'));
+// //Coercion type
+// console.log(friends.includes('23'));
+// console.log(friends.includes(23));
 
-if (friends.includes('Steven')) {
-    console.log(`You have a friend called Steven`)
+// if (friends.includes('Steven')) {
+//     console.log(`You have a friend called Steven`)
+// }
+
+/**
+ * Introduccion to Objects
+ */
+
+
+// const Anthony = {
+// firtsName: 'Anthony',
+// lastName: 'Maldonado',
+// yearOfBirth: 1995,
+// job: 'Web developer',
+// friends: ['Heczaid', 'Ricardo', 'Edinson']
+// }
+
+// const currentDate = 2021;
+
+// console.log(Anthony.firtsName, Anthony.job, currentDate - Anthony.yearOfBirth)
+
+// const Keyname = 'Name';
+
+// console.log(Anthony['firts' + Keyname]);
+
+// const interestedIn = prompt('What do you want to know about Anthony? Choose between firstName, lastName, yearOfBirth, job or friends');
+
+// console.log(Anthony[interestedIn]);
+
+// if (Anthony[interestedIn]) {
+//     console.log(Anthony[interestedIn])
+// } else {
+//     console.log('you are not searching correctly')
+// }
+
+
+// Anthony.location = 'Venezuela';
+// Anthony['Twitter'] = '@Anthony_Vim'
+
+// console.log(Anthony)
+
+// Anthony[interestedIn] ? console.log(Anthony[interestedIn]) : console.log('you are not searching correctly')
+
+//Challenge
+//"Anthony has 3 friends, and this best friend is called Ricardo"
+
+// const totalFriends = (Anthony.friends).length
+// const uniqueFried = Anthony.friends[1]
+// console.log(totalFriends, uniqueFried);
+
+// console.log(`${Anthony.firtsName} has ${totalFriends} friends, and this best friends is called ${uniqueFried}`)
+
+/**
+ * Objects methods
+ */
+
+const Anthony = {
+    firtsName: 'Anthony',
+    lastName: 'Maldonado',
+    yearOfBirth: 1995,
+    job: 'Web developer',
+    friends: ['Heczaid', 'Ricardo', 'Edinson'],
+    hasDriverLicence: true,
+    // calcAge: function (birthYear) {
+    // return 2021 - birthYear
+    // }
+
+    // calcAge: function () {
+    // return 2021 - this.yearOfBirth
+    // }
+
+    calcAge: function () {
+        this.age = 2021 - this.yearOfBirth;
+        return this.age
+    }
 }
+
+console.log(Anthony.age)

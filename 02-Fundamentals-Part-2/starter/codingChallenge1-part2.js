@@ -49,6 +49,7 @@ const averagefinalDolphins = calcAverage(dolphinScore1, dolphinScore2, dolphinSc
 const averagefinalKoalas = calcAverage(koalaScore1, koalaScore2, koalaScore3);
 
 
+
 const message = averagefinalDolphins > averagefinalKoalas;
 
 const messagefinal = (message) => {
@@ -61,10 +62,7 @@ const messagefinal = (message) => {
 
 const callToaction = messagefinal(message)
 
-
 //console.log(typeof (message));
-
-
 
 const checkWinner = function (avgDolphins, avgKoalas) {
     const calc1 = avgDolphins * 2;

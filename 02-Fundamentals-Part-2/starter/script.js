@@ -1,5 +1,5 @@
 // Video1: Activating strict mode
-// 'use strict';
+'use strict';
 
 // let hasDriverLicence = false;
 // const passTest = true;
@@ -309,25 +309,141 @@
  * Objects methods
  */
 
-const Anthony = {
-    firtsName: 'Anthony',
-    lastName: 'Maldonado',
-    yearOfBirth: 1995,
-    job: 'Web developer',
-    friends: ['Heczaid', 'Ricardo', 'Edinson'],
-    hasDriverLicence: true,
-    // calcAge: function (birthYear) {
-    // return 2021 - birthYear
-    // }
+// const Anthony = {
+//     firtsName: 'Anthony',
+//     lastName: 'Maldonado',
+//     yearOfBirth: 1995,
+//     job: 'Web developer',
+//     friends: ['Heczaid', 'Ricardo', 'Edinson'],
+//     hasDriverLicence: true,
+//     // calcAge: function (birthYear) {
+//     // return 2021 - birthYear
+//     // }
 
-    // calcAge: function () {
-    // return 2021 - this.yearOfBirth
-    // }
+//     // calcAge: function () {
+//     // return 2021 - this.yearOfBirth
+//     // }
 
-    calcAge: function () {
-        this.age = 2021 - this.yearOfBirth;
-        return this.age
-    }
+//     calcAge: function () {
+//         this.age = 2021 - this.yearOfBirth;
+//         return this.age
+//     }
+// }
+
+// console.log(Anthony.age)
+
+
+/**
+ * For loop
+ */
+
+
+// for loop keeps runnuing while condition is TRUE
+
+// let ancho = 20;
+// const multiplicador = 20;
+// const largo = 30
+
+// for (let rep = 1; rep <= multiplicador; rep++) {
+//     console.log(`lifting weigths repetition ${rep}`)
+
+// }
+
+// const Anthony = [
+//     'Anthony',
+//     'Maldonado',
+//     2021 - 1995,
+//     'developer',
+//     ['Ricardo', 'Brigitte'],
+//     true
+// ]
+// let types = [];
+// for (let i = 0; i < Anthony.length; i++) {
+//     if (Anthony[i] === 'Maldonado') {
+//         console.log(`exito ${Anthony[i]} position ${i}`)
+//         break
+//     } else {
+//         console.log('no exito')
+//     }
+// };
+
+// for (let i = 0; i < Anthony.length; i++) {
+//     const persona = Anthony
+//     console.log(persona[i], typeof persona[i])
+
+//     types.unshift(typeof Anthony[i])
+// }
+
+
+// console.log(types)
+
+// const years = [2021, 2007, 2012, 1952]
+// const ages = []
+
+// for (let i = 0; i < years.length; i++) {
+//     ages.push(2021 - years[i])
+
+// }
+
+// console.log(ages)
+
+//continue and break statement
+
+// for (let i = 0; i < Anthony.length; i++) {
+//     if (typeof Anthony[i] !== 'string') continue;
+
+//     console.log(Anthony[i], typeof Anthony[i])
+
+// }
+
+
+/**
+ *Looping Backwards and Loops in Loops
+ */
+
+// const Anthony = [
+//     'Anthony',
+//     'Maldonado',
+//     2021 - 1995,
+//     'developer',
+//     ['Ricardo', 'Brigitte'],
+//     true
+// ]
+
+// for (let i = Anthony.length - 1; i >= 0; i--) {
+//     console.log(i, Anthony[i]);
+// }
+
+// for (let exercices = 1; exercices <= 4; exercices++) {
+//     console.log(`=== Starting exercices ${exercices}`)
+
+//     for (let rep = 1; rep < 6; rep++) {
+//         console.log(`=== Lifting weith repetition ${rep}`)
+
+//     }
+// }
+
+/**
+ * while loop
+ */
+
+// for (let rep = 1; rep <= 10; rep++) {
+// console.log(`lifting weigths repetition ${rep}`)
+
+// }
+
+
+// let rep = 1;
+// while (rep <= 10) {
+//     console.log(`WHILE:lifting weigths repetition ${rep}`)
+//     rep++
+// }
+
+let dice = Math.trunc((Math.random() * 6) + 1)
+
+while (dice !== 6) {
+    console.log(`You rolle a dice ${dice}`)
+    dice = Math.trunc((Math.random() * 6) + 1)
+
+    dice === 6 ? console.log(`loop is about to end`) : console.log(`not end`)
 }
-
-console.log(Anthony.age)

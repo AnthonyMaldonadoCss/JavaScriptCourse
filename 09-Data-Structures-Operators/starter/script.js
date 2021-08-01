@@ -36,8 +36,20 @@ const restaurant = {
       close: 24,
     },
   },
-  orderDelivery: function (obj) {
-    console.log(obj);
+
+  orderDelivery: function ({
+    starterIndex = 1,
+    mainIndex = 0,
+    address,
+    time = `20:00`,
+  }) {
+    console.log(
+      `Order recieved! ${this.starterMenu[starterIndex]} anddd ${this.mainMenu[mainIndex]} will be delivered to ${address} at ${time}`
+    );
+  },
+
+  orderPasta: function (ing1, ing2, ing3) {
+    console.log(`here is your delicius pasta with ${ing1},${ing2} and ${ing3}`);
   },
 };
 
@@ -79,40 +91,97 @@ const restaurant = {
 // const [p = 1, q = 1, r = 1] = [8, 9];
 // console.log(p, q, r);
 
-const { name, openingHours, categories } = restaurant;
-console.log(name, openingHours, categories);
+// const { name, openingHours, categories } = restaurant;
+// console.log(name, openingHours, categories);
 
-const {
-  name: restaurantName,
-  openingHours: hours,
-  categories: tags,
-} = restaurant;
-console.log(restaurantName, openingHours, tags);
+// const {
+// name: restaurantName,
+// openingHours: hours,
+// categories: tags,
+// } = restaurant;
+// console.log(restaurantName, hours, tags);
 
 //default values
-const { menu = [], starterMenu: starters = [] } = restaurant;
-console.log(menu, starters);
+// const { menu = [], starterMenu: starters = [] } = restaurant;
+// console.log(menu, starters);
 
 //mutating variables
-let a = 111;
-let b = 999;
-const obj = { a: 23, b: 7, c: 14 };
+// let a = 111;
+// let b = 999;
+// const obj = { a: 23, b: 7, c: 14 };
 
 //si se comienza una linea de codigo, con brackes js da error
 //el espera un bloque de codigo
 //por ende hay que encerrarlo en parantesis
-({ a, b } = obj);
-console.log(a, b);
+// ({ a, b } = obj);
+// console.log(a, b);
 
 //nested objects
-const {
-  fri: { open, close },
-} = openingHours;
-console.log(open, close);
+// const {
+// fri: { open, close },
+// } = openingHours;
+// console.log(open, close);
 
-restaurant.orderDelivery({
-  time: '22:30',
-  address: 'Via del Sole, 21',
-  mainIndex: 2,
-  starterIndex: 2,
-});
+// restaurant.orderDelivery({
+// time: '22:30',
+// address: 'Via del Sole, 21',
+// mainIndex: 2,
+// starterIndex: 2,
+// });
+
+// restaurant.orderDelivery({
+// address: 'Quebec, 2',
+// });
+const arr = [2, 3, 4];
+const badArr = [1, 2, arr[0], arr[1], arr[2]];
+console.log(badArr);
+let iterator;
+
+for (let i = 0; i <= arr.length; i++) {
+  iterator = arr[i];
+}
+const goodArr = [1, 2, iterator];
+
+const newArr = [1, 2, ...arr];
+console.log(newArr);
+
+const newMenu = [...restaurant.mainMenu, `Gnocci`];
+console.log(newMenu);
+
+//Copy arrays
+
+const mainMenuCopy = [...restaurant.mainMenu];
+
+//join 2 arrays
+
+//Spread operator
+const NewMenuCopy = [...restaurant.mainMenu, ...restaurant.starterMenu];
+//Concat method
+const concatenar = restaurant.mainMenu.concat(restaurant.starterMenu);
+console.log(NewMenuCopy, concatenar);
+
+//Iterables:arrays, string, maps, sets. NOT objects
+const anthony = `Anthony`;
+const letters = [...anthony, ',', 'S.'];
+console.log(letters);
+//does not work because does not expect comma-separated values
+//console.log(${...anthony});
+
+//Real world example
+// const ingredients = [
+//   prompt("Let's make pasta! Ingredient 1"),
+//   prompt('Ingredients 2'),
+//   prompt('Ingredients 3'),
+// ];
+// console.log(ingredients);
+
+// restaurant.orderPasta(...ingredients);
+
+//objects
+const newRestaurant = { foundedIn: 1991, ...restaurant, founder: `Giussepe` };
+console.log(newRestaurant);
+
+const restauranCopy = { ...restaurant };
+restauranCopy.name = `Ristorante Roma`;
+console.log(restauranCopy.name);
+console.log(restaurant.name);

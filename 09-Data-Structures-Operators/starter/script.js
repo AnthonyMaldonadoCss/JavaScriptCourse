@@ -51,6 +51,24 @@ const restaurant = {
   orderPasta: function (ing1, ing2, ing3) {
     console.log(`here is your delicius pasta with ${ing1},${ing2} and ${ing3}`);
   },
+  orderPizza: function (ingredients, ...otherIngredients) {
+    const [a, b, c, d = `none`] = otherIngredients;
+    console.log(typeof otherIngredients);
+
+    console.log(a, b, c, d);
+    if (otherIngredients.length === 0) {
+      console.log(ingredients);
+      console.log(`no hay ingredientes extras`);
+    } else {
+      console.log(`this ingredients in: ${ingredients}`);
+      console.log(
+        `Your pizza order has the following ingredients ${a}, ${b}, ${c}, ${d}`
+      );
+    }
+
+    // console.log(ingredients);
+    // console.log(otherIngredients);
+  },
 };
 
 // const arr = [2, 3, 4];
@@ -132,38 +150,38 @@ const restaurant = {
 // restaurant.orderDelivery({
 // address: 'Quebec, 2',
 // });
-const arr = [2, 3, 4];
-const badArr = [1, 2, arr[0], arr[1], arr[2]];
-console.log(badArr);
-let iterator;
+// const arr = [2, 3, 4];
+// const badArr = [1, 2, arr[0], arr[1], arr[2]];
+// console.log(badArr);
+// let iterator;
 
-for (let i = 0; i <= arr.length; i++) {
-  iterator = arr[i];
-}
-const goodArr = [1, 2, iterator];
+// for (let i = 0; i <= arr.length; i++) {
+// iterator = arr[i];
+// }
+// const goodArr = [1, 2, iterator];
 
-const newArr = [1, 2, ...arr];
-console.log(newArr);
+// const newArr = [1, 2, ...arr];
+// console.log(newArr);
 
-const newMenu = [...restaurant.mainMenu, `Gnocci`];
-console.log(newMenu);
+// const newMenu = [...restaurant.mainMenu, `Gnocci`];
+// console.log(newMenu);
 
 //Copy arrays
 
-const mainMenuCopy = [...restaurant.mainMenu];
+// const mainMenuCopy = [...restaurant.mainMenu];
 
 //join 2 arrays
 
 //Spread operator
-const NewMenuCopy = [...restaurant.mainMenu, ...restaurant.starterMenu];
+// const NewMenuCopy = [...restaurant.mainMenu, ...restaurant.starterMenu];
 //Concat method
-const concatenar = restaurant.mainMenu.concat(restaurant.starterMenu);
-console.log(NewMenuCopy, concatenar);
+// const concatenar = restaurant.mainMenu.concat(restaurant.starterMenu);
+// console.log(NewMenuCopy, concatenar);
 
 //Iterables:arrays, string, maps, sets. NOT objects
-const anthony = `Anthony`;
-const letters = [...anthony, ',', 'S.'];
-console.log(letters);
+// const anthony = `Anthony`;
+// const letters = [...anthony, ',', 'S.'];
+// console.log(letters);
 //does not work because does not expect comma-separated values
 //console.log(${...anthony});
 
@@ -178,10 +196,47 @@ console.log(letters);
 // restaurant.orderPasta(...ingredients);
 
 //objects
-const newRestaurant = { foundedIn: 1991, ...restaurant, founder: `Giussepe` };
-console.log(newRestaurant);
+// const newRestaurant = { foundedIn: 1991, ...restaurant, founder: `Giussepe` };
+// console.log(newRestaurant);
 
-const restauranCopy = { ...restaurant };
-restauranCopy.name = `Ristorante Roma`;
-console.log(restauranCopy.name);
-console.log(restaurant.name);
+// const restauranCopy = { ...restaurant };
+// restauranCopy.name = `Ristorante Roma`;
+// console.log(restauranCopy.name);
+// console.log(restaurant.name);
+
+//Rest pattern and parameters
+
+//Destructuring
+//Spread, because on Rigth side of =
+const arr = [1, 2, ...[3, 4]];
+
+//Spread, because on left side of =
+
+const [a, b, ...others] = [1, 2, 3, 4, 5];
+console.log(a, b, others);
+
+const [pizza, , rissotto, ...otherFood] = [
+  ...restaurant.mainMenu,
+  ...restaurant.starterMenu,
+];
+
+console.log(pizza, rissotto, otherFood);
+
+//objects
+const { sat, ...otherdays } = restaurant.openingHours;
+console.log(otherdays, sat);
+
+//2 Functions
+
+const add = function (...numbers) {
+  // console.log(numbers);
+  let sum = 0;
+  for (let i = 0; i < numbers.length; i++) sum += numbers[i];
+  console.log(sum);
+};
+add(2, 3);
+add(4, 7, 8, 9);
+add(5, 90, 34, 12);
+
+restaurant.orderPizza(`Mushrooms`, `onion`, `mozarella`, `anchoas`, `pescao`);
+restaurant.orderPizza(`more mozarella`);

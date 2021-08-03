@@ -23,16 +23,16 @@ players)
 new array ('players1Final') containing all the original team1 players plus
 'Thiago', 'Coutinho' and 'Perisic'
 
-    5. Based on the game.odds object, create one variable for each odd (called
-    'team1', 'draw' and 'team2')
+5. Based on the game.odds object, create one variable for each odd (called
+'team1', 'draw' and 'team2')
 
-    6. Write a function ('printGoals') that receives an arbitrary number of player
-    names (not an array) and prints each of them to the console, along with the
-    number of goals that were scored in total (number of player names passed in)
+6. Write a function ('printGoals') that receives an arbitrary number of player
+names (not an array) and prints each of them to the console, along with the
+number of goals that were scored in total (number of player names passed in)
 
-    7. The team with the lower odd is more likely to win. Print to the console which
-    team is more likely to win, without using an if/else statement or the ternary
-    operator.
+7. The team with the lower odd is more likely to win. Print to the console which
+team is more likely to win, without using an if/else statement or the ternary
+operator.
 
 Test data for 6.: First, use players 'Davies', 'Muller', 'Lewandowski' and 'Kimmich'.
 Then, call the function again with players from game.scored
@@ -80,22 +80,56 @@ const game = {
   },
 };
 
+//Answer 1
 const [players1, players2] = game.players;
-console.log(players1, players2);
+// console.log(players1, players2);
 
+//Answer 2
 //Bayern Munich (team 1)
 const [gk, ...fieldPlayers] = players1;
-console.log(gk, fieldPlayers);
-
+// console.log(gk, fieldPlayers);
 //(Team 2)
 const [gk2, ...fieldPlayers2] = players2;
-console.log(gk2, fieldPlayers2);
+// console.log(gk2, fieldPlayers2);
 
+//Answer 3
 const allPlayers = [...players1, ...players2];
-console.log(allPlayers);
+// console.log(allPlayers);
 
+//Answer 4
 const players1Final = [...players1, `Thiago`, `Coutinho`, `Perisic`];
-console.log(players1Final);
+// console.log(players1Final);
 
-const { a, b, c } = game.odds;
-console.log(a, b, c);
+//Answer 5
+const { odds } = game;
+// console.log(odds);
+
+const {
+  odds: { team1, x: draw, team2 },
+} = game;
+console.log(` team 1 = ${team1},Draw = ${draw},team 2 = ${team2}`);
+
+//Answer 6
+//que imprima todos los nombres de jugadores pasados a la funcion
+//y que por otro lado imprima el length de ese array
+const printGoals = function (...players) {
+  console.log(players, players.length);
+  const [players1, players2, players3, players4] = players;
+  console.log(players1, players2, players3, players4);
+
+  for (let i = 0; i < players.length; i++) {
+    const element = players[i];
+    console.log(element, players.length);
+  }
+};
+
+// printGoals('Davies', 'Muller', 'Lewandowski', 'Kimmich', `anthony`);
+// const [...scored] = game.scored;
+// console.log(...scored);
+// printGoals(...scored);
+
+//7
+while (team1 < team2) {
+  console.log(`el team 1 gana`);
+}
+console.log(`el team 2 gana`);

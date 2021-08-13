@@ -52,7 +52,13 @@ const restaurant = {
     console.log(`here is your delicius pasta with ${ing1},${ing2} and ${ing3}`);
   },
   orderPizza: function (ingredients, ...otherIngredients) {
-    const [a, b, c, d = `none`] = otherIngredients;
+    //Rest pattern
+    const [
+      a = `no escogio`,
+      b = `no escogio`,
+      c = `no escogio`,
+      d = `no escogio`,
+    ] = otherIngredients;
     console.log(typeof otherIngredients);
 
     console.log(a, b, c, d);
@@ -208,35 +214,114 @@ const restaurant = {
 
 //Destructuring
 //Spread, because on Rigth side of =
-const arr = [1, 2, ...[3, 4]];
+// const arr = [1, 2, ...[3, 4]];
 
 //Spread, because on left side of =
 
-const [a, b, ...others] = [1, 2, 3, 4, 5];
-console.log(a, b, others);
+// const [a, b, ...others] = [1, 2, 3, 4, 5];
+// console.log(a, b, others);
 
-const [pizza, , rissotto, ...otherFood] = [
-  ...restaurant.mainMenu,
-  ...restaurant.starterMenu,
-];
+// const [pizza, , rissotto, ...otherFood] = [
+// ...restaurant.mainMenu,
+// ...restaurant.starterMenu,
+// ];
 
-console.log(pizza, rissotto, otherFood);
+// console.log(pizza, rissotto, otherFood);
 
 //objects
-const { sat, ...otherdays } = restaurant.openingHours;
-console.log(otherdays, sat);
+// const { sat, ...otherdays } = restaurant.openingHours;
+// console.log(otherdays, sat);
 
 //2 Functions
 
-const add = function (...numbers) {
-  // console.log(numbers);
-  let sum = 0;
-  for (let i = 0; i < numbers.length; i++) sum += numbers[i];
-  console.log(sum);
-};
-add(2, 3);
-add(4, 7, 8, 9);
-add(5, 90, 34, 12);
+// const add = function (...numbers) {
+// console.log(numbers);
+// let sum = 0;
+// for (let i = 0; i < numbers.length; i++) sum += numbers[i];
+// console.log(sum);
+// };
+// add(2, 3);
+// add(4, 7, 8, 9);
+// add(5, 90, 34, 12);
 
-restaurant.orderPizza(`Mushrooms`, `onion`, `mozarella`, `anchoas`, `pescao`);
-restaurant.orderPizza(`more mozarella`);
+// restaurant.orderPizza(`Mushrooms`, `onion`, `mozarella`, `anchoas`, `pescao`);
+// restaurant.orderPizza(`more mozarella`);
+
+//Short circuiting (&& and ||)
+
+// console.log(`====OR====`);
+
+//El condicional OR devuelve el primer true en la cadena de comparacion que este ejecutando
+//si no hay ninguno, la ultima opcion de la cadena
+
+// console.log(3 || `Anthony`);
+// console.log(`` || `Anthony`);
+// console.log(true || 0);
+// console.log(undefined || null);
+// console.log(undefined || 0 || `` || `hello` || 23 || null);
+
+//El corto circuito se da porque el evalua hasta la primera condicion que sea true
+//y retorna ese primer true, los demas los omite
+
+// restaurant.numGuest = 0;
+// const gues1 = restaurant.numGuest ? restaurant.numGuest : 10;
+// console.log(gues1);
+
+//evalua esta condicion, si es undefined o con cualquier otro valor falsy, le asigna el 10
+//si no es undefined le asigna el 23
+// const gues2 = restaurant.numGuest || 10;
+// console.log(gues2);
+
+// console.log(`====IF====`);
+
+//al contrario del operador OR
+// el AND devuelve el primer valor falsy que encuentre en la condicion
+
+// console.log(0 && `Anthony`);
+// console.log(7 && `Anthony`);
+
+// console.log(`hello` && 23 && null && `anthony`);
+//en este caso ninguno cumple con la condicion del true
+//ya que todos son true
+//y el devuelve el ultimo valor de esta cadena (esto no quiere decir que ese valor es falsy)
+// console.log(`hello` && 23 && 45 && `anthony`);
+
+//practical example
+// if (restaurant.orderPizza) {
+// restaurant.orderPizza(`mushrooms`, `spinach`);
+// }
+//nullish coalescing operator
+// restaurant.numGuest = 20;
+// const guest = restaurant.numGuest || 10;
+// console.log(guest);
+
+//nullish: null and undefined (NOT 0 or ``)
+// const guestCorrect = restaurant.numGuest ?? 10;
+// console.log(guestCorrect);
+
+// const numerosPrimos = function (num) {
+//   let iterador = 0;
+//   for (let i = 0; i < num.length; i++) {
+//     iterador = num[i];
+//     console.log(iterador);
+//   }
+
+//   let operador = [];
+//   iterador % 2;
+//   console.log(operador);
+//   console.log(iterador);
+// };
+
+// const numeros = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+// numerosPrimos(numeros);
+
+// for Of Loop
+const menu = [...restaurant.starterMenu, ...restaurant.mainMenu];
+
+// for (const item of menu) console.log(item);
+for (const item of menu.entries()) {
+  console.log(item);
+}
+for (const [i, el] of menu.entries()) {
+  console.log(`${i + 1}: ${el}`);
+}

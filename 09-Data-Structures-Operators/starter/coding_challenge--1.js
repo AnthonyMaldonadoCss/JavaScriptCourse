@@ -86,8 +86,8 @@ const [players1, players2] = game.players;
 
 //Answer 2
 //Bayern Munich (team 1)
-const [gk, ...fieldPlayers] = players1;
-// console.log(gk, fieldPlayers);
+const [gk, gk02, ...fieldPlayers] = players1;
+console.log(gk, gk02, fieldPlayers);
 //(Team 2)
 const [gk2, ...fieldPlayers2] = players2;
 // console.log(gk2, fieldPlayers2);
@@ -107,29 +107,25 @@ const { odds } = game;
 const {
   odds: { team1, x: draw, team2 },
 } = game;
-console.log(` team 1 = ${team1},Draw = ${draw},team 2 = ${team2}`);
+// console.log(` team 1 = ${team1},Draw = ${draw},team 2 = ${team2}`);
 
 //Answer 6
 //que imprima todos los nombres de jugadores pasados a la funcion
 //y que por otro lado imprima el length de ese array
 const printGoals = function (...players) {
-  console.log(players, players.length);
-  const [players1, players2, players3, players4] = players;
-  console.log(players1, players2, players3, players4);
+  console.log(`${players.length} goals were scored`);
 
   for (let i = 0; i < players.length; i++) {
     const element = players[i];
-    console.log(element, players.length);
+    console.log(element);
   }
 };
 
-// printGoals('Davies', 'Muller', 'Lewandowski', 'Kimmich', `anthony`);
+printGoals('Davies', 'Muller', 'Lewandowski', 'Kimmich', `anthony`);
 // const [...scored] = game.scored;
 // console.log(...scored);
 // printGoals(...scored);
 
 //7
-while (team1 < team2) {
-  console.log(`el team 1 gana`);
-}
-console.log(`el team 2 gana`);
+team1 < team2 && console.log(`Team 1 is more likely to win`);
+team1 > team2 && console.log(`Team 2 is more likely to win`);

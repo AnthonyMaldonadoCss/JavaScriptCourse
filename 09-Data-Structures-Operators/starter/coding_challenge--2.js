@@ -69,8 +69,52 @@ const game = {
 // solution 1
 
 const scored = game.scored;
-console.log(scored);
+// console.log(scored);
 
 for (const [key, value] of scored.entries()) {
-  console.log(`Goal ${key + 1}: ${value}`);
+  // console.log(`Goal ${key + 1}: ${value}`);
 }
+
+// solution 2
+
+const {
+  odds: { team1, x, team2 },
+} = game;
+// console.log(team1, x, team2);
+
+//obtuve los valores en un objeto
+const odds = { ...game.odds };
+// console.log(odds, typeof odds);
+
+const mediaOdd = function (media) {
+  const values = Object.values(media);
+  // console.log(media);
+  // console.log(values);
+
+  let sum = 0;
+  for (let i = 0; i < values.length; i++) sum += values[i];
+  const mediaOdd = Math.round(sum / values.length);
+  console.log(`the odd is ${mediaOdd}`);
+};
+// mediaOdd(odds);
+
+// solution 3
+const Odd = function (media) {
+  const values = Object.values(media);
+  const keys = Object.keys(media);
+  const teams = [game.team1, game.team2];
+  // console.log(keys, values);
+
+  for (const x of keys) {
+    console.log(x);
+    if()
+  }
+
+  const booleano = game.team + `1`;
+  console.log(booleano);
+};
+
+
+console.log(teams);
+
+// Odd(odds);

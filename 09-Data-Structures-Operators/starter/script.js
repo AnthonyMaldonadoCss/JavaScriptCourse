@@ -5,13 +5,34 @@ const flights =
   '_Delayed_Departure;fao93766109;txl2133758440;11:25+_Arrival;bru0943384722;fao93766109;11:45+_Delayed_Arrival;hel7439299980;fao93766109;12:05+_Departure;fao93766109;lis2323639855;12:30';
 
 // Data needed for first part of the section
+const weekdays = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
+
+// let item = '';
+for (let item of weekdays);
+
+const openingHours = {
+  [weekdays[0]]: {
+    open: 12,
+    close: 22,
+  },
+  fri: {
+    open: 11,
+    close: 23,
+  },
+  sat: {
+    open: 0, // Open 24 hours
+    close: 24,
+  },
+};
+
 const restaurant = {
   name: 'Classico Italiano',
   location: 'Via Angelo Tavanti 23, Firenze, Italy',
   categories: ['Italian', 'Pizzeria', 'Vegetarian', 'Organic'],
   starterMenu: ['Focaccia', 'Bruschetta', 'Garlic Bread', 'Caprese Salad'],
   mainMenu: ['Pizza', 'Pasta', 'Risotto'],
-  order: function (starterIndex, mainIndex) {
+  openingHours,
+  order(starterIndex, mainIndex) {
     //return string
     // return `${this.starterMenu[starterIndex]}, ${this.mainMenu[mainIndex]}`;
 
@@ -22,36 +43,16 @@ const restaurant = {
   //   return [this.starterMenu[startIndex]], [this.mainMenu[mainIndex]];
   // },
 
-  openingHours: {
-    thu: {
-      open: 12,
-      close: 22,
-    },
-    fri: {
-      open: 11,
-      close: 23,
-    },
-    sat: {
-      open: 0, // Open 24 hours
-      close: 24,
-    },
-  },
-
-  orderDelivery: function ({
-    starterIndex = 1,
-    mainIndex = 0,
-    address,
-    time = `20:00`,
-  }) {
+  orderDelivery({ starterIndex = 1, mainIndex = 0, address, time = `20:00` }) {
     console.log(
       `Order recieved! ${this.starterMenu[starterIndex]} anddd ${this.mainMenu[mainIndex]} will be delivered to ${address} at ${time}`
     );
   },
 
-  orderPasta: function (ing1, ing2, ing3) {
+  orderPasta(ing1, ing2, ing3) {
     console.log(`here is your delicius pasta with ${ing1},${ing2} and ${ing3}`);
   },
-  orderPizza: function (ingredients, ...otherIngredients) {
+  orderPizza(ingredients, ...otherIngredients) {
     //Rest pattern
     const [
       a = `no escogio`,
@@ -319,9 +320,95 @@ const restaurant = {
 const menu = [...restaurant.starterMenu, ...restaurant.mainMenu];
 
 // for (const item of menu) console.log(item);
-for (const item of menu.entries()) {
-  console.log(item);
-}
+// for (const item of menu.entries()) {
+// console.log(item);
+// }
 for (const [i, el] of menu.entries()) {
   console.log(`${i + 1}: ${el}`);
+}
+// for (const item of menu) {
+// const [a, b, c, d, e, f, g, h, i] = item;
+// console.log(a, b, c, d, e, f, g, h, i);
+// }
+
+/**
+Optional chaining (?)
+ */
+if (restaurant.openingHours && restaurant.openingHours.mon)
+  // console.log(restaurant.openingHours.mon.open);
+  // console.log(restaurant.openingHours.thu.open);
+
+  //Whit optional chaining
+
+  //para verificar si una propiedad existe dentro de un arreglo
+  // console.log(restaurant.openingHours.thus?.open);
+
+  //example
+  //recordar usar el for of loop para recorrer arrays
+  // const days = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
+  // for (const day of days) {
+  // const open = restaurant.openingHours[day]?.open; // with nullish coalescing operator = ?? "close"
+  // console.log(
+  // `On ${day}, ${open === undefined ? 'not working ' : open + ' hours'}`
+  // );
+  // }
+
+  // for (const day of weekdays) {
+  //   const action =
+  //     restaurant.openingHours[day]?.close &&
+  //     restaurant.openingHours[day]?.close;
+  // console.log(`${day}, ${action}`);
+  // }
+  // Methods
+
+  // console.log(restaurant.order?.(0, 1) ?? `Method does not exits`);
+  // console.log(restaurant.orderRissoto?.(0, 1) ?? `Method does not exist`);
+
+  //Arrays
+  // const currentDate = 2021;
+  // const user = [
+  //   {
+  //     name: `Anthony`,
+  //     email: `anthonysistemas20@gmail.com`,
+  //     age: currentDate - 1997,
+  //   },
+  //   { name: `Heczaid`, email: `anthony@gmail.com`, age: currentDate - 1995 },
+  // ];
+  // console.log(user[0]?.name ?? 'User array empty');
+
+  // for (const item of user) {
+  // console.log(item);
+  // }
+
+  // if (user.length > 0) console.log(user[0].name);
+  // else console.log(`user array empty`);
+
+  /**
+   * Looping Objects: Object Keys, Values, and Entries
+   */
+
+  for (const day of Object.values(openingHours)) {
+    console.log(day);
+  }
+
+const propierties = Object.keys(openingHours);
+console.log(propierties);
+
+let OpenStr = `We are open on ${propierties.length} days: `;
+
+for (const day of propierties) {
+  OpenStr += `${day},`;
+}
+console.log(OpenStr);
+
+//Property values
+const values = Object.values(openingHours);
+console.log(values);
+
+//entire object
+const entries = Object.entries(openingHours);
+console.log(entries);
+
+for (const [key, { open, close }] of entries) {
+  console.log(`On ${key}, we open at ${open} and close at ${close}`);
 }

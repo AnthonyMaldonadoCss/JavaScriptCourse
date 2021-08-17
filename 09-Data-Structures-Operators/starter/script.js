@@ -317,15 +317,15 @@ const restaurant = {
 // numerosPrimos(numeros);
 
 // for Of Loop
-const menu = [...restaurant.starterMenu, ...restaurant.mainMenu];
+// const menu = [...restaurant.starterMenu, ...restaurant.mainMenu];
 
 // for (const item of menu) console.log(item);
 // for (const item of menu.entries()) {
 // console.log(item);
 // }
-for (const [i, el] of menu.entries()) {
-  console.log(`${i + 1}: ${el}`);
-}
+// for (const [i, el] of menu.entries()) {
+// console.log(`${i + 1}: ${el}`);
+// }
 // for (const item of menu) {
 // const [a, b, c, d, e, f, g, h, i] = item;
 // console.log(a, b, c, d, e, f, g, h, i);
@@ -334,81 +334,109 @@ for (const [i, el] of menu.entries()) {
 /**
 Optional chaining (?)
  */
-if (restaurant.openingHours && restaurant.openingHours.mon)
-  // console.log(restaurant.openingHours.mon.open);
-  // console.log(restaurant.openingHours.thu.open);
+// if (restaurant.openingHours && restaurant.openingHours.mon)
+// console.log(restaurant.openingHours.mon.open);
+// console.log(restaurant.openingHours.thu.open);
 
-  //Whit optional chaining
+//Whit optional chaining
 
-  //para verificar si una propiedad existe dentro de un arreglo
-  // console.log(restaurant.openingHours.thus?.open);
+//para verificar si una propiedad existe dentro de un arreglo
+// console.log(restaurant.openingHours.thus?.open);
 
-  //example
-  //recordar usar el for of loop para recorrer arrays
-  // const days = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
-  // for (const day of days) {
-  // const open = restaurant.openingHours[day]?.open; // with nullish coalescing operator = ?? "close"
-  // console.log(
-  // `On ${day}, ${open === undefined ? 'not working ' : open + ' hours'}`
-  // );
-  // }
+//example
+//recordar usar el for of loop para recorrer arrays
+// const days = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
+// for (const day of days) {
+// const open = restaurant.openingHours[day]?.open; // with nullish coalescing operator = ?? "close"
+// console.log(
+// `On ${day}, ${open === undefined ? 'not working ' : open + ' hours'}`
+// );
+// }
 
-  // for (const day of weekdays) {
-  //   const action =
-  //     restaurant.openingHours[day]?.close &&
-  //     restaurant.openingHours[day]?.close;
-  // console.log(`${day}, ${action}`);
-  // }
-  // Methods
+// for (const day of weekdays) {
+//   const action =
+//     restaurant.openingHours[day]?.close &&
+//     restaurant.openingHours[day]?.close;
+// console.log(`${day}, ${action}`);
+// }
+// Methods
 
-  // console.log(restaurant.order?.(0, 1) ?? `Method does not exits`);
-  // console.log(restaurant.orderRissoto?.(0, 1) ?? `Method does not exist`);
+// console.log(restaurant.order?.(0, 1) ?? `Method does not exits`);
+// console.log(restaurant.orderRissoto?.(0, 1) ?? `Method does not exist`);
 
-  //Arrays
-  // const currentDate = 2021;
-  // const user = [
-  //   {
-  //     name: `Anthony`,
-  //     email: `anthonysistemas20@gmail.com`,
-  //     age: currentDate - 1997,
-  //   },
-  //   { name: `Heczaid`, email: `anthony@gmail.com`, age: currentDate - 1995 },
-  // ];
-  // console.log(user[0]?.name ?? 'User array empty');
+//Arrays
+// const currentDate = 2021;
+// const user = [
+//   {
+//     name: `Anthony`,
+//     email: `anthonysistemas20@gmail.com`,
+//     age: currentDate - 1997,
+//   },
+//   { name: `Heczaid`, email: `anthony@gmail.com`, age: currentDate - 1995 },
+// ];
+// console.log(user[0]?.name ?? 'User array empty');
 
-  // for (const item of user) {
-  // console.log(item);
-  // }
+// for (const item of user) {
+// console.log(item);
+// }
 
-  // if (user.length > 0) console.log(user[0].name);
-  // else console.log(`user array empty`);
+// if (user.length > 0) console.log(user[0].name);
+// else console.log(`user array empty`);
 
-  /**
-   * Looping Objects: Object Keys, Values, and Entries
-   */
+/**
+ * Looping Objects: Object Keys, Values, and Entries
+ */
 
-  for (const day of Object.values(openingHours)) {
-    console.log(day);
-  }
+//   for (const day of Object.values(openingHours)) {
+//     console.log(day);
+//   }
 
-const propierties = Object.keys(openingHours);
-console.log(propierties);
+// const propierties = Object.keys(openingHours);
+// console.log(propierties);
 
-let OpenStr = `We are open on ${propierties.length} days: `;
+// let OpenStr = `We are open on ${propierties.length} days: `;
 
-for (const day of propierties) {
-  OpenStr += `${day},`;
-}
-console.log(OpenStr);
+// for (const day of propierties) {
+//   OpenStr += `${day},`;
+// }
+// console.log(OpenStr);
 
-//Property values
-const values = Object.values(openingHours);
-console.log(values);
+// //Property values
+// const values = Object.values(openingHours);
+// console.log(values);
 
-//entire object
-const entries = Object.entries(openingHours);
-console.log(entries);
+// //entire object
+// const entries = Object.entries(openingHours);
+// console.log(entries);
 
-for (const [key, { open, close }] of entries) {
-  console.log(`On ${key}, we open at ${open} and close at ${close}`);
-}
+// for (const [key, { open, close }] of entries) {
+//   console.log(`On ${key}, we open at ${open} and close at ${close}`);
+// }
+
+/**SETS */
+const orderSet = new Set([`pizza`, `pasta`, `pasta`, `focaccia`, `pizza`]);
+console.log(orderSet);
+
+console.log(new Set(`anthony`));
+
+console.log(orderSet.size);
+//consulting
+console.log(orderSet.has(`bread`));
+console.log(orderSet.has(`pizza`));
+//update
+orderSet.add(`garlic bread`);
+orderSet.add(`garlic bread`);
+console.log(orderSet);
+//delete
+orderSet.delete(`focaccia`);
+console.log(orderSet);
+
+//iterable
+for (const x of orderSet) console.log(x);
+
+const staff = [`waiter`, `chef`, `waiter`, `manager`, `chef`, `waiter`];
+const staffUnique = [...new Set(staff)];
+console.log(staffUnique);
+console.log(
+  new Set([`waiter`, `chef`, `waiter`, `manager`, `chef`, `waiter`]).size
+);

@@ -57,7 +57,7 @@ const game = {
     ],
   ],
   score: '4:0',
-  scored: ['Lewandowski', 'Gnarby', 'Lewandowski', 'Hummels'],
+  scored: ['Lewandowski', 'Gnarby', 'Hummels'],
   date: 'Nov 9th, 2037',
   odds: {
     team1: 1.33,
@@ -68,10 +68,10 @@ const game = {
 
 // solution 1
 
-const scored = game.scored;
+// const scored = game.scored;
 // console.log(scored);
 
-for (const [key, value] of scored.entries()) {
+for (const [key, value] of game.scored.entries()) {
   // console.log(`Goal ${key + 1}: ${value}`);
 }
 
@@ -98,23 +98,36 @@ const mediaOdd = function (media) {
 };
 // mediaOdd(odds);
 
+//solution 2 (teacher)
+const values = Object.values(game.odds);
+let average = 0;
+
+for (const i of values) average += i;
+average /= values.length;
+// console.log(Math.round(average));
+/******************************** */
+
 // solution 3
-const Odd = function (media) {
-  const values = Object.values(media);
-  const keys = Object.keys(media);
-  const teams = [game.team1, game.team2];
-  // console.log(keys, values);
 
-  for (const x of keys) {
-    console.log(x);
-    if()
-  }
+for (const [team, odd] of Object.entries(game.odds)) {
+  // console.log(team, odd);
+  const teamStr = team === `x` ? `draw` : `victory ${game[team]}`;
+  console.log(`odd of ${teamStr} ${odd}`);
+}
 
-  const booleano = game.team + `1`;
-  console.log(booleano);
-};
+const scorers = {};
 
+// for (let x of game.scored) {
+//   if (scorers[x]) {
+//     scorers[x]++;
+//   } else {
+//     scorers[x] = 1;
+//   }
+// }
 
-console.log(teams);
+for (let x of game.scored) {
+  console.log(x);
+  scorers[x]++ || (scorers[x] = 1);
+}
 
-// Odd(odds);
+console.log(scorers);

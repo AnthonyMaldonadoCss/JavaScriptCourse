@@ -443,31 +443,60 @@ Optional chaining (?)
 
 /***** */
 /**Map: fundamentals */
-const rest = new Map();
-rest.set(`name`, `clasico italiano`);
-rest.set(1, `Firenze, italy`);
-console.log(rest.set(2, `Lisbon, Portugal`));
+// const rest = new Map();
+// rest.set(`name`, `clasico italiano`);
+// rest.set(1, `Firenze, italy`);
+// console.log(rest.set(2, `Lisbon, Portugal`));
 
-rest
-  .set(`categories`, ['Italian', 'Pizzeria', 'Vegetarian', 'Organic'])
-  .set(`open`, 11)
-  .set(`close`, 23)
-  .set(true, `We are open`)
-  .set(false, `We are close`);
+// rest
+// .set(`categories`, ['Italian', 'Pizzeria', 'Vegetarian', 'Organic'])
+// .set(`open`, 11)
+// .set(`close`, 23)
+// .set(true, `We are open`)
+// .set(false, `We are close`);
 
 // console.log(rest.get(1));
 // console.log(rest.get(`name`));
 // console.log(rest.get(true));
 
-const time = new Date();
-const hours = time.getHours();
-console.log(rest.get(hours > rest.get(`open`) && hours < rest.get(`close`)));
+// const time = new Date();
+// const hours = time.getHours();
+// console.log(rest.get(hours > rest.get(`open`) && hours < rest.get(`close`)));
 
-console.log(rest.has(`categories`));
-rest.delete(2);
+// console.log(rest.has(`categories`));
+// rest.delete(2);
 // rest.clear();
-const arr = [1, 2];
-rest.set(arr, `Test`);
-rest.set(document.querySelector(`h1`), `heading`);
-console.log(rest.get(arr));
-console.log(rest.size);
+// const arr = [1, 2];
+// rest.set(arr, `Test`);
+// rest.set(document.querySelector(`h1`), `heading`);
+// console.log(rest.get(arr));
+// console.log(rest.size);
+
+/**Maps: iteration */
+const question = new Map([
+  [`question`, `whats is the best programming language in the world?`],
+  [1, `c`],
+  [2, `Java`],
+  [3, `JavaScript`],
+  [`correct`, 3],
+  [true, `correct`],
+  [false, `Try again`],
+]);
+console.log(question);
+
+//Convert Object to Map
+console.log(Object.entries(openingHours));
+
+const hoursMap = new Map(Object.entries(openingHours));
+console.log(hoursMap);
+
+//Quiz app
+console.log(question.get(`question`));
+for (const [key, value] of question) {
+  if (typeof key === `number`) console.log(`Answer ${key}: value ${value}`);
+}
+
+const answer = Number(prompt(`Your answer`));
+console.log(answer);
+
+console.log(question.get(question.get(`correct`) === answer));

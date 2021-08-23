@@ -44,15 +44,15 @@ document.body.append(document.createElement('textarea'));
 document.body.append(document.createElement('button'));
 
 const camelCase = function (string) {
-  const normalize = string.toLowerCase();
+  const normalize = string.toLowerCase().split('_');
+  const AllStr = [];
 
-  const [primero, segundo] = normalize.replaceAll('_', ' ').split(' ');
+  for (const n of normalize) {
+    AllStr.push(n.replace(n[0], n[0].toUpperCase()));
 
-  const stringSt = primero.replace(primero[0], primero[0].toUpperCase());
-  const stringNd = segundo.replace(segundo[0], segundo[0].toUpperCase());
-
-  const NewString = `${stringSt}${stringNd}`;
-  console.log(NewString);
+    const NewString = AllStr.join('');
+    console.log(NewString);
+  }
 };
 
 camelCase('delayed_departure');

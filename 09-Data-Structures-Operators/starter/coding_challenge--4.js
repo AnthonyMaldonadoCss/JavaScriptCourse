@@ -44,15 +44,56 @@ document.body.append(document.createElement('textarea'));
 document.body.append(document.createElement('button'));
 
 const camelCase = function (string) {
-  const normalize = string.toLowerCase().split('_');
+  console.log(string);
+
+  for (const i of string) {
+    console.log(i);
+    const [first, second] = i.toLowerCase().trim().split('_');
+    console.log(first, second);
+    console.log(
+      `${first}${second.replace(second[0], second[0].toUpperCase())}`
+    );
+  }
+
+  /*const [first, second] = string.toLowerCase().trim().split('_');
+  console.log(first, second);
   const AllStr = [];
 
-  for (const n of normalize) {
+  const newSecond = second.replace(second[0], second[0].toUpperCase());
+
+  console.log(`${first}${newSecond}`);*/
+
+  /*for (const n of normalize) {
     AllStr.push(n.replace(n[0], n[0].toUpperCase()));
 
     const NewString = AllStr.join('');
+
     console.log(NewString);
-  }
+  }*/
 };
 
-camelCase('delayed_departure');
+//camelCase(['lindo_dia', 'OTRO_DIA', 'esto_otro']);
+
+document.querySelector('button').addEventListener('click', function (string) {
+  const text = document.querySelector('textarea').value;
+  const rows = text.split('\n');
+  // console.log(rows);
+
+  for (const [i, value] of rows.entries()) {
+    const [first, second] = value.toLowerCase().trim().split('_');
+    // console.log(`Iteration ${i + 1}, value ${value} = ${first}, ${second}`);
+    const str = `${first}${second.replace(second[0], second[0].toUpperCase())}`;
+    console.log(`${str.padEnd(20)}${'✅'.repeat(i + 1)}`);
+  }
+
+  /*console.log(string);
+
+  for (const i of string) {
+    console.log(i);
+    const [first, second] = i.toLowerCase().trim().split('_');
+    console.log(first, second);
+    console.log(
+      `${first}${second.replace(second[0], second[0].toUpperCase())}`
+    );
+  }*/
+});

@@ -38,7 +38,7 @@ const checkDogs = (dogsJulia, dogsKate) => {
 
     pets.forEach((mov, index) => {
         
-        const agePuppy = mov >= 3 ? `is an adult is ${mov} years old` : `is still a puppy`
+        const agePuppy = mov >= 3 ? `is an adult is ${mov} years old` : `is still a puppy 🐶` 
         
         console.log(`Dog number ${index + 1} ${agePuppy}`)
 

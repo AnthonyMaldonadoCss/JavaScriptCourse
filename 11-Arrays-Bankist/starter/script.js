@@ -20,7 +20,7 @@ const account2 = {
 };
 
 const account3 = {
-  owner: 'Steven Thomas Williams',
+  owner: 'Anthony Jose Maldonado Loiz',
   movements: [200, -200, 340, -300, -20, 50, 400, -460],
   interestRate: 0.7,
   pin: 3333,
@@ -61,6 +61,9 @@ const inputLoanAmount = document.querySelector('.form__input--loan-amount');
 const inputCloseUsername = document.querySelector('.form__input--user');
 const inputClosePin = document.querySelector('.form__input--pin');
 
+/**
+ * Creating DOM Elements
+ */
 
 const displayMovement = function(movements){
 
@@ -84,6 +87,24 @@ const displayMovement = function(movements){
 
 }
 displayMovement(account1.movements)
+
+const createUserNames = function(accs){
+  
+  accs.forEach(function(acc){
+    
+    acc.username = acc.owner
+    .toLowerCase()
+    .split(' ')
+    .map((name) => name[0])
+    .join('')
+
+    
+  })
+
+  return accs
+}
+
+console.log(createUserNames(accounts))
 
 
 /////////////////////////////////////////////////
@@ -148,7 +169,7 @@ console.log(letters.join('-'))*/
  * Looping Arrays: For Each 
  */
 
-const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+// const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 // console.log(`-----FOR OF LOOP-----`)
 
@@ -203,7 +224,40 @@ currenciesUnique.forEach((value, key, map) => {
   console.log(`${key}: ${value}`)
 })*/
 
+
 /**
- * Creating DOM Elements
+ * The map method
  */
 
+const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+
+const eurToUsd = 1.1;
+
+/*const movementsUsd =  movements.map(function(mov){
+  	return Math.round(mov * eurToUsd)
+})*/
+
+const movementsUsd = movements.map((mov) => Math.round(mov * eurToUsd))
+
+// console.log(movements)
+// console.log(movementsUsd)
+
+
+const movementUSDfor = [];
+for(const mov of movements) movementUSDfor.push( Math.round(mov * eurToUsd))
+
+// console.log(movementUSDfor)
+
+const movementsDescriptions = movements.map((mov, i) => 
+  
+  `Movement ${i + 1}: You ${mov > 0 ? 'deposited' : 'withdrew'} ${Math.abs(mov)}`
+  
+  
+ /* if(movement > 0) {
+         console.log(`Movement ${index + 1}: You deposited ${movement}`)
+       } else {
+         console.log(`Movement ${index + 1}: You Witdrew ${Math.abs(movement)}`)
+   }*/
+)
+
+// console.log(movementsDescriptions)

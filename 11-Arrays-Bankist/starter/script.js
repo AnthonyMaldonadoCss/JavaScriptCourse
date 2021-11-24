@@ -88,23 +88,31 @@ const displayMovement = function(movements){
 }
 displayMovement(account1.movements)
 
+const calcDisplayBalance = function (movements) {
+  const balance = movements.reduce((acc, cur) => acc + cur, 0);
+
+  labelBalance.textContent = `${balance} EUR`;
+}
+
+calcDisplayBalance(account1.movements)
+
 const createUserNames = function(accs){
   
   accs.forEach(function(acc){
     
+    //username no esta creado, es una propiedad que se crea una vez llamado la funcion
+
     acc.username = acc.owner
     .toLowerCase()
     .split(' ')
     .map((name) => name[0])
     .join('')
+  });
+};
 
-    
-  })
+//console.log(createUserNames(accounts))
 
-  return accs
-}
 
-console.log(createUserNames(accounts))
 
 
 /////////////////////////////////////////////////
@@ -261,3 +269,55 @@ const movementsDescriptions = movements.map((mov, i) =>
 )
 
 // console.log(movementsDescriptions)
+
+
+/**
+ * The filter method
+ */
+
+//console.log(movements)
+
+// const deposits =  movements.filter((mov) => mov > 0)
+// console.log(deposits)
+
+
+// const depositFor = []
+// for (const mov of movements) if(mov > 0 ) depositFor.push(mov)
+
+// console.log(depositFor)
+
+// const witdrawals = movements.filter((mov) => mov < 0)
+// console.log(witdrawals)
+
+/**
+ * The Reduce Method
+ */
+
+console.log(movements)
+
+//Acummulator -> SNOWBALL
+//El cero es de donde va a comenzar el acumulador
+// const balance = movements.reduce(function (acc, cur, i, arr) {
+//   console.log(`Iteration ${i}: ${acc}`)
+//   return acc + cur
+// }, 0)
+
+// const balance = movements.reduce((acc, cur) => acc + cur)
+
+// console.log(balance)
+
+// let balance2 = 0;
+// for(const mov of movements) balance2 += mov
+// console.log(balance2)
+
+//Maximum value
+
+const max = movements.reduce((acc, cur) => {
+  if(acc > cur){
+    return acc 
+  } else {
+    return cur
+  }
+},movements[0])
+
+console.log(max)

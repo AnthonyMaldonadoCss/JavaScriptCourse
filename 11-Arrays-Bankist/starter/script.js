@@ -78,7 +78,7 @@ const displayMovement = function(movements){
 
     <div class="movements__row">
       <div class="movements__type movements__type--${type}">${i + 1} ${type}</div>
-      <div class="movements__value">${mov}</div>
+      <div class="movements__value">${mov}&nbsp;€</div>
     </div>
     
     `
@@ -88,6 +88,7 @@ const displayMovement = function(movements){
 }
 displayMovement(account1.movements)
 
+/**SUM TOTAL ACCOUNT */
 const calcDisplayBalance = function (movements) {
   const balance = movements.reduce((acc, cur) => acc + cur, 0);
 
@@ -95,7 +96,34 @@ const calcDisplayBalance = function (movements) {
 }
 
 calcDisplayBalance(account1.movements)
+/************************************ */
 
+
+/***Summary */
+
+const calcDisplaSummary =  function(movement){
+
+  const incomes = movement.filter(mov => mov > 0)
+                          .reduce((acc, curr) => acc  + curr, 0);
+  const outcomes =  movement.filter(mov => mov < 0)
+                            .reduce((acc, curr) => acc  + curr, 0);
+  
+  const interest = movement.filter(mov => mov > 0)
+  .map(deposit => deposit * (1.2/100))
+  .filter((acc, curr, i) =>
+  { 
+    console.log(acc + ":" + curr)
+    return acc >= 1
+  })
+  .reduce((acc, curr) => acc + curr);
+
+  labelSumIn.textContent = `${incomes}€`;
+  labelSumOut.textContent = `${Math.abs(outcomes)}€`;
+  labelSumInterest.textContent = `${interest}€`
+}
+calcDisplaSummary(account1.movements)
+
+/** */
 const createUserNames = function(accs){
   
   accs.forEach(function(acc){
@@ -293,7 +321,7 @@ const movementsDescriptions = movements.map((mov, i) =>
  * The Reduce Method
  */
 
-console.log(movements)
+console.log(...movements)
 
 //Acummulator -> SNOWBALL
 //El cero es de donde va a comenzar el acumulador
@@ -302,22 +330,31 @@ console.log(movements)
 //   return acc + cur
 // }, 0)
 
-// const balance = movements.reduce((acc, cur) => acc + cur)
+//  const balance = movements.reduce((acc, cur) => acc + cur, 0)
 
-// console.log(balance)
+//  console.log(balance)
 
-// let balance2 = 0;
-// for(const mov of movements) balance2 += mov
-// console.log(balance2)
+//  let balance2 = 0;
+//  for(const mov of movements) balance2 += mov
+//  console.log(balance2)
 
 //Maximum value
 
-const max = movements.reduce((acc, cur) => {
-  if(acc > cur){
-    return acc 
-  } else {
-    return cur
-  }
-},movements[0])
+// const max = movements.reduce((acc, cur) => {
+//   if(acc > cur){
+//     return acc 
+//   } else {
+//     return cur
+//   }
+// },movements[0])
 
-console.log(max)
+// console.log(max)
+
+/**The Magic of chaining methods */
+
+//PIPELINE
+const totalDepositedUSD = movements.filter((mov) => mov > 0)
+                                   .map(mov => (mov * eurToUsd))
+                                   .reduce((acc, curr) => acc + curr, 0 )
+
+console.log(totalDepositedUSD.toFixed(2))

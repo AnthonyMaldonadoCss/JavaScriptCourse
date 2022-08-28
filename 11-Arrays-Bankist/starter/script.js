@@ -65,6 +65,8 @@ const inputClosePin = document.querySelector('.form__input--pin');
  * Creating DOM Elements
  */
 
+// labelDate.textContent =  moment().toNow()._d;
+labelDate.textContent = "TODO"
 const displayMovement = function(movements){
 
   containerMovements.innerHTML = '';
@@ -86,7 +88,6 @@ const displayMovement = function(movements){
   });
 
 }
-displayMovement(account1.movements)
 
 /**SUM TOTAL ACCOUNT */
 const calcDisplayBalance = function (movements) {
@@ -95,24 +96,22 @@ const calcDisplayBalance = function (movements) {
   labelBalance.textContent = `${balance} EUR`;
 }
 
-calcDisplayBalance(account1.movements)
 /************************************ */
 
 
 /***Summary */
 
-const calcDisplaSummary =  function(movement){
+const calcDisplaSummary =  function(acc){
 
-  const incomes = movement.filter(mov => mov > 0)
+  const incomes = acc.movements.filter(mov => mov > 0)
                           .reduce((acc, curr) => acc  + curr, 0);
-  const outcomes =  movement.filter(mov => mov < 0)
+  const outcomes =  acc.movements.filter(mov => mov < 0)
                             .reduce((acc, curr) => acc  + curr, 0);
   
-  const interest = movement.filter(mov => mov > 0)
-  .map(deposit => deposit * (1.2/100))
+  const interest = acc.movements.filter(mov => mov > 0)
+  .map(deposit => deposit * (acc.interestRate/100))
   .filter((acc, curr, i) =>
   { 
-    console.log(acc + ":" + curr)
     return acc >= 1
   })
   .reduce((acc, curr) => acc + curr);
@@ -121,7 +120,6 @@ const calcDisplaSummary =  function(movement){
   labelSumOut.textContent = `${Math.abs(outcomes)}€`;
   labelSumInterest.textContent = `${interest}€`
 }
-calcDisplaSummary(account1.movements)
 
 /** */
 const createUserNames = function(accs){
@@ -137,8 +135,41 @@ const createUserNames = function(accs){
     .join('')
   });
 };
+createUserNames(accounts)
 
-//console.log(createUserNames(accounts))
+// Event handler
+let currentAccount;
+console.log(accounts)
+btnLogin.addEventListener('click', function(e){
+  // prevent form from submitting
+  e.preventDefault()
+  //como mejorar esta validacion de contraseña ? todo:
+  //hacer funcion para las validaciones
+  
+  currentAccount = accounts.find(acc => acc.username === inputLoginUsername.value);
+
+  if(currentAccount?.pin === Number(inputLoginPin.value) && toString(currentAccount).split("").length === toString(inputLoginPin.value).split("").length){
+    
+    //display UI and message
+    labelWelcome.textContent =`Welcome back ${currentAccount.owner.split(' ')[0]}`; 
+    containerApp.style.opacity = 100;
+
+    //clear the input fields
+    
+    //display movements
+    displayMovement(currentAccount.movements)
+    
+    //display balance
+    calcDisplayBalance(currentAccount.movements)
+    
+    //display summary
+    calcDisplaSummary(currentAccount)
+    
+    inputLoginUsername.value = inputLoginPin.value = "";
+
+    inputLoginPin.blur();
+  }
+})
 
 
 
@@ -355,6 +386,26 @@ console.log(...movements)
 //PIPELINE
 const totalDepositedUSD = movements.filter((mov) => mov > 0)
                                    .map(mov => (mov * eurToUsd))
-                                   .reduce((acc, curr) => acc + curr, 0 )
+                                   .reduce((acc, curr) => acc + curr, 0)
 
 console.log(totalDepositedUSD.toFixed(2))
+
+
+/**
+ * FIND METHOD
+ * return to first thing that matches the condition
+ */
+
+const firstWithdrawal = movements.find(mov => mov < 0)
+
+let accountInUse = "" //accounts.find(acc => acc.owner === "Jessica Davis")
+
+/**
+ * with for of method
+ */
+
+for(let acc of accounts){
+    if (acc.owner === "Jessica Davis"){
+      accountInUse = acc
+    }
+}

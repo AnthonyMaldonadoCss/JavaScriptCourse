@@ -12,15 +12,22 @@
 
 const calcAverageHumanAge = function (dogAge) {
     console.log(`Array original: ${dogAge}`)
-   const average = dogAge.map((acc) => {
-       if(acc <= 2){
-           return (2 * acc)
-       } else if(acc > 2){
-           return 16 + (acc * 4)
-       }
-   })
-   .filter((i) => i > 18)
-   .reduce((acc, curr) => acc + curr, dogAge[0])
+   
+    const minus = 2
+    const mayor = 4
+    const average =  dogAge.map(i => (i <= 2) ? minus * i : 16 + (i * mayor))
+                            .filter(i => i >= 18)
+                            .reduce((acc,curr) => acc + curr, dogAge[0])
+   
+    // const average = dogAge.map((acc) => {
+    //    if(acc <= 2){
+        //    return (2 * acc)
+    //    } else if(acc > 2){
+        //    return 16 + (acc * 4)
+    //    }
+//    })
+//    .filter((i) => i > 18)
+//    .reduce((acc, curr) => acc + curr, dogAge[0])
 
    return `Promedio: ${Math.round( average / dogAge.length)}`
 }

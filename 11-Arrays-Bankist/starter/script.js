@@ -90,10 +90,9 @@ const displayMovement = function(movements){
 }
 
 /**SUM TOTAL ACCOUNT */
-const calcDisplayBalance = function (movements) {
-  const balance = movements.reduce((acc, cur) => acc + cur, 0);
-
-  labelBalance.textContent = `${balance} EUR`;
+const calcDisplayBalance = function (acc) {
+  acc.balance = acc.movements.reduce((acc, cur) => acc + cur, 0);
+  labelBalance.textContent = `${acc.balance} EUR`;
 }
 
 /************************************ */
@@ -137,6 +136,19 @@ const createUserNames = function(accs){
 };
 createUserNames(accounts)
 
+const updateUi = function(acc){
+   
+    //display movements
+    displayMovement(acc.movements)
+    
+    //display balance
+    calcDisplayBalance(acc)
+    
+    //display summary
+    calcDisplaSummary(acc)
+  
+}
+
 // Event handler
 let currentAccount;
 console.log(accounts)
@@ -152,25 +164,65 @@ btnLogin.addEventListener('click', function(e){
     
     //display UI and message
     labelWelcome.textContent =`Welcome back ${currentAccount.owner.split(' ')[0]}`; 
-    containerApp.style.opacity = 100;
-
     //clear the input fields
-    
-    //display movements
-    displayMovement(currentAccount.movements)
-    
-    //display balance
-    calcDisplayBalance(currentAccount.movements)
-    
-    //display summary
-    calcDisplaSummary(currentAccount)
-    
     inputLoginUsername.value = inputLoginPin.value = "";
-
+    containerApp.style.opacity = 100;
     inputLoginPin.blur();
+
+    updateUi(currentAccount)
   }
 })
 
+
+btnTransfer.addEventListener('click',  function(e){
+  e.preventDefault();
+
+  const amount = Number(inputTransferAmount.value);
+  //convertir esta busqueda en eu una lista desplegable
+  const receiverAcc = accounts.find(acc => acc.username === inputTransferTo.value);
+
+  console.log(receiverAcc, amount);
+  console.log(currentAccount.balance)
+
+  if (
+      amount > 0 && 
+      amount <= currentAccount.balance && 
+      receiverAcc && 
+      receiverAcc != currentAccount?.username
+    ){
+    console.log('Transfer valid')
+
+    inputTransferAmount.value = inputTransferTo.value = "";
+
+    currentAccount.movements.push(-amount);
+    receiverAcc.movements.push(amount);
+    updateUi(currentAccount)
+
+  }
+
+})
+
+btnClose.addEventListener('click', function(e){
+  e.preventDefault();
+
+  console.log('Delete');
+
+  if(inputCloseUsername.value === currentAccount.username &&
+    Number(inputClosePin.value) === currentAccount.pin){
+      const index =  accounts.findIndex(acc => acc.username === currentAccount.username)
+      console.log(index)
+      //Delete account
+      accounts.splice(index, 1);
+      
+      //Hide Ui
+      containerApp.style.opacity = 0;
+
+      console.log('Deleted!')
+    }
+    inputCloseUsername.value = inputClosePin.value = "";
+    labelWelcome.textContent = "Log in to get started"
+
+})
 
 
 

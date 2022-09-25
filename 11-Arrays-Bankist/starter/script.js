@@ -67,11 +67,13 @@ const inputClosePin = document.querySelector('.form__input--pin');
 
 // labelDate.textContent =  moment().toNow()._d;
 labelDate.textContent = "TODO"
-const displayMovement = function(movements){
+const displayMovement = function(movements, sort = false){
 
   containerMovements.innerHTML = '';
 
-  movements.forEach((mov, i) => {
+  const movs = sort ? movements.slice("").sort((a,b) => a - b) : movements.slice("").sort((a,b) => b - a);
+
+  movs.forEach((mov, i) => {
     
 
     const type = mov > 0 ? 'deposit' : 'withdrawal';
@@ -151,7 +153,7 @@ const updateUi = function(acc){
 
 // Event handler
 let currentAccount;
-console.log(accounts)
+// console.log(accounts)
 btnLogin.addEventListener('click', function(e){
   // prevent form from submitting
   e.preventDefault()
@@ -200,7 +202,21 @@ btnTransfer.addEventListener('click',  function(e){
 
   }
 
+});
+
+btnLoan.addEventListener('click', function(e){
+  e.preventDefault();
+
+  const amount = Number(inputLoanAmount.value);
+  if(amount > 0 && currentAccount.movements.some(move => move >= (amount * 0.1))){
+    // add movement
+    currentAccount.movements.push(amount);
+    
+    // update to Ui
+    updateUi(currentAccount);
+  }
 })
+
 
 btnClose.addEventListener('click', function(e){
   e.preventDefault();
@@ -222,7 +238,20 @@ btnClose.addEventListener('click', function(e){
     inputCloseUsername.value = inputClosePin.value = "";
     labelWelcome.textContent = "Log in to get started"
 
+});
+
+let sorted = false;
+
+btnSort.addEventListener('click', function(e) {
+  e.preventDefault();
+
+  console.log('SORT')
+  displayMovement(currentAccount.movements, !sorted);
+  sorted = !sorted;
 })
+
+
+
 
 
 
@@ -404,7 +433,7 @@ const movementsDescriptions = movements.map((mov, i) =>
  * The Reduce Method
  */
 
-console.log(...movements)
+// console.log(...movements)
 
 //Acummulator -> SNOWBALL
 //El cero es de donde va a comenzar el acumulador
@@ -440,7 +469,7 @@ const totalDepositedUSD = movements.filter((mov) => mov > 0)
                                    .map(mov => (mov * eurToUsd))
                                    .reduce((acc, curr) => acc + curr, 0)
 
-console.log(totalDepositedUSD.toFixed(2))
+// console.log(totalDepositedUSD.toFixed(2))
 
 
 /**
@@ -461,3 +490,142 @@ for(let acc of accounts){
       accountInUse = acc
     }
 }
+
+// console.log(movements)
+/**
+ * SOME METHOD
+ */
+
+//si alguno de los elementos cumple con la condicion dada
+const anyDeposits = movements.some(mov => mov > 500)
+// console.log(anyDeposits)
+
+
+/**
+ * EVERY METHOD
+ */
+
+//si todos los elementos cumplen con la condicion
+const allDeposits = movements.every(mov => mov >=100);
+// console.log(allDeposits)
+
+//separate callback
+
+const deposit = mov => mov >= 0;
+
+// console.log(movements.some(deposit))
+// console.log(movements.every(deposit))
+// console.log(movements.filter(deposit))
+
+/**
+ * flat and flatmap method
+ */
+
+const arrio = [[1,2,3],[4,5,6],7,8];
+// console.log(arrio.flat());
+
+const arrioDeep = [[[1,2],3],[4,[5,6]],7,8];
+// console.log(arrioDeep.flat(2))
+
+const overalBalanace = accounts.map(acc => acc.movements).flat().reduce((acc, mov) => acc + mov, 0)
+// console.log(overalBalanace)
+
+//flatMap solo llega al primer anidamiento, si es necesario ir mas profundo lo mejor es usar flat
+const overalBalanace2 = accounts.flatMap(acc => acc.movements).reduce((acc, mov) => acc + mov, 0)
+// console.log(overalBalanace2)
+
+/**
+ * SORT METHOD
+ * 
+ */
+
+//ESTE METODO MUTA EL ARRAY ORIGINAL
+const owners = ['Jonas', 'Zack', 'Anthony', 'Martha'];
+// console.log(owners.sort())
+// console.log(owners)
+
+//este metodo ordena por strings, asi funciona de manera predeterminada
+
+//return < 0 A, B
+//return > 0 B, A
+// console.log(movements)
+
+//Ascending
+movements.sort((a, b) => {
+  // console.log(a, b)
+  if(a > b) return 1;
+  if(b > a) return -1;
+});
+// console.log(movements)
+
+//Descending
+movements.sort((a, b) => {
+  // console.log(a, b)
+  if(a > b) return -1;
+  if(b > a) return 1;
+});
+// console.log(movements)
+
+/**
+ * FILL METHOD
+ */
+
+/**
+ * Cambia todos los elementos de un arreglo por un valor estatico, desde el índice start, por defecto 0
+ * hasta el índice end array.length y retorna el arreglo modificado
+ */ 
+
+const arri = [1,2,3,4,5,6,7,8,9,0]
+// console.log(new Array(7))
+//puedo declarar un array vacio con []
+//y tambien con el método new Array() => pasandole el length que necesitaré
+//tiene múltiples ventajas crear un array con un length especifico 
+const test =  new Array(8)
+// console.log(test)
+test.fill(1,2,3) 
+//fill recibe 3 parametros, el primero es con lo que quiero que se llene
+//el segundo y el tercero son los espacios donde quiero que lo haga, parecido a un slice 
+//desde - hasta
+// console.log(`fill con parametros: ${test}`, test);
+test.fill(1)
+// console.log(`fill sin parametros: ${test}`, test)
+
+//Array.from
+/**
+ * permite crear un array con un legth especifico y adicionalmente
+ * permite usar una funcion donde podemos especificar que datos queremos
+ * dentro del array
+*/
+
+const x =  Array.from({length: 7}, () => 1);
+// console.log(x)
+
+const y = Array.from({length: 7}, (_,i) => i + 1) 
+// al usar el _ como valor en una funcion indicamos que no estamos usando ese parametro dentro de la funcion
+// el _ es el current value, pero como es un array vacío no hay manera de usarlo
+// si lo retornamos es un undefined, si lo usamos aritmeticamente será un Nan 
+// console.log(y);
+
+const convertToNumber  = function(elemt){
+  return Number(elemt.textContent.replace('€',''));
+  /**
+   * esto me permite infinitas posibilidades de trabajar 
+   * con los valores obtenidos de una interfaz
+   * directamente
+   */
+}
+
+
+labelBalance.addEventListener('click', function(){
+  //donde ya ha cargado en la interfaz los movimientos, es algo como el this
+  
+  const movementsUI = Array.from(document.querySelectorAll('.movements__value'), 
+    elem => convertToNumber(elem)//elem => Number(elem.textContent.replace('€',''))
+  );
+  // const cleanMovements =  movementsUI.map((elem) => Number(elem.textContent.replace('€','')))
+      //este segundo paso puedo ahorrarmelo llamando directamente a una funcion
+  // console.log(movementsUI);
+  const movementsUI2 = [...document.querySelectorAll('.movements__value')]
+  //spread operator
+  // console.log(movementsUI2);
+})

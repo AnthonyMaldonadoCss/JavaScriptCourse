@@ -629,3 +629,59 @@ labelBalance.addEventListener('click', function(){
   //spread operator
   // console.log(movementsUI2);
 })
+
+/**
+ * ARRAY METHODS PRACTICE
+ */
+
+const bankDepositdSum =  accounts
+.flatMap((acc) => acc.movements)
+.filter(mov => mov > 0)
+.reduce((sum, curr) => sum + curr,0);
+
+console.log(bankDepositdSum);
+
+//2.
+const numDepositd1000 = accounts
+.flatMap(acc => acc.movements)
+.filter(mov => mov >= 1000).length
+console.log(numDepositd1000);
+
+const numDepositd1000_2 = accounts
+.flatMap(acc => acc.movements)
+.reduce((count, curr) => curr >=1000 ? ++count : count, 0)
+console.log(numDepositd1000_2);
+
+let a = 10
+console.log(a++);
+// al usarlo de esta manera, actualiza la variable pero no la imprima 
+// es como un updateBefore
+console.log(++a);
+//en cambio de esta manera es de inmediato
+
+//3.
+
+const {deposits, withdraw} = accounts
+.flatMap(acc => acc.movements)
+.reduce((sums,curr)=>{
+  // curr >=0 ? sums.deposits += curr : sums.withdraw += curr;
+  // return sums;
+  sums[curr >= 0 ? 'deposits' : 'withdraw'] += curr;
+  return sums
+},{deposits:0, withdraw:0})
+
+console.log(deposits, withdraw);
+
+//4.
+
+const titleCase = function(title){
+
+  const exceptions = ['a', 'an', 'the', 'but', 'or', 'on', 'in', 'with', 'is', 'and'];
+  const titleCase = title.toLowerCase().split(" ")
+  .map(word => !exceptions.includes(word) ? word[0].toUpperCase() + word.slice(1) : word ).join(" ");
+  return titleCase
+}
+console.log(titleCase("this is a nice title"))
+console.log(titleCase("This is a LONG title but not too long"))
+console.log(titleCase("and here is another title with an example"))
+

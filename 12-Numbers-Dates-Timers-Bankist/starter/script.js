@@ -94,7 +94,7 @@ const displayMovements = function (movements, sort = false) {
         <div class="movements__type movements__type--${type}">${
       i + 1
     } ${type}</div>
-        <div class="movements__value">${mov}€</div>
+        <div class="movements__value">${mov.toFixed(2)}€</div>
       </div>
     `;
 
@@ -104,29 +104,32 @@ const displayMovements = function (movements, sort = false) {
 
 const calcDisplayBalance = function (acc) {
   acc.balance = acc.movements.reduce((acc, mov) => acc + mov, 0);
-  labelBalance.textContent = `${acc.balance}€`;
+  labelBalance.textContent = `${acc.balance.toFixed(2)}€`;
 };
 
 const calcDisplaySummary = function (acc) {
-  const incomes = acc.movements
+  const incomes = (acc.movements
     .filter(mov => mov > 0)
-    .reduce((acc, mov) => acc + mov, 0);
-  labelSumIn.textContent = `${incomes}€`;
+    .reduce((acc, mov) => acc + mov, 0)
+  );
+  labelSumIn.textContent = `${incomes.toFixed(2)}€`;
 
-  const out = acc.movements
+  const out = (acc.movements
     .filter(mov => mov < 0)
-    .reduce((acc, mov) => acc + mov, 0);
-  labelSumOut.textContent = `${Math.abs(out)}€`;
+    .reduce((acc, mov) => acc + mov, 0)
+  );
+  labelSumOut.textContent = `${Math.abs(out).toFixed(2)}€`;
 
-  const interest = acc.movements
+  const interest = (acc.movements
     .filter(mov => mov > 0)
     .map(deposit => (deposit * acc.interestRate) / 100)
     .filter((int, i, arr) => {
       // console.log(arr);
       return int >= 1;
     })
-    .reduce((acc, int) => acc + int, 0);
-  labelSumInterest.textContent = `${interest}€`;
+    .reduce((acc, int) => acc + int, 0)
+  );
+  labelSumInterest.textContent = `${interest.toFixed(2)}€`;
 };
 
 const createUsernames = function (accs) {
@@ -206,7 +209,7 @@ btnTransfer.addEventListener('click', function (e) {
 btnLoan.addEventListener('click', function (e) {
   e.preventDefault();
 
-  const amount = Number(inputLoanAmount.value);
+  const amount = Math.floor(inputLoanAmount.value);
 
   if (amount > 0 && currentAccount.movements.some(mov => mov >= amount * 0.1)) {
     // Add movement
@@ -251,5 +254,76 @@ btnSort.addEventListener('click', function (e) {
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 // LECTURES
+
+//check if valuie is NaN
+// console.log(isNaN("dsd")); 
+// console.log(isNaN('20'));
+// console.log(isNaN(23/0));
+
+//checking if value is number
+// console.log(isFinite(20));
+// console.log(Number.isFinite(+'20'));
+
+
+// console.log(Number.isInteger(12));
+
+/**
+ * Math and rounding
+ */
+
+//raiz cuadrada
+console.log(Math.sqrt(25));
+console.log(25 ** (1/2));
+
+//número máximo
+let testNumbers = [2,3,5,6,14,53,67,678,8,5,23,1];
+let testNumbersWithS = [2,3,5,6,14,53,67,678,8,5,23,1,'679']
+let testNumbersWithPx = [2,3,5,6,14,53,67,678,8,5,23,1,'679', '777px']
+
+console.log(Math.max(...testNumbers));
+console.log(Math.max(...testNumbersWithS));
+console.log(Math.max(...testNumbersWithPx));
+
+/**
+ * por cada número dado lo parsea a number, si el mayor es NaN ese será retornado
+ */
+
+//obtener el área de una circunferencia
+//teniendo el radio
+console.log(Math.PI * Number.parseFloat('10px') ** 2);
+
+//Obtener un numero random
+
+// console.log(Math.trunc(Math.random() * 6) + 1);
+
+//obtener un numero random entre dos numeros dados
+const randomInt = (min = 1, max = 10) => Math.trunc(Math.random() * (max - min) + 1) + min;
+console.log(randomInt(5,10));
+
+//Rounding integers
+
+//delete any float after the comma
+console.log(Math.trunc(23.2));
+//round number to up
+console.log(Math.round(23.5));
+
+console.log(Math.ceil(23.3));
+console.log(Math.ceil(23.9));
+
+
+console.log(Math.floor(23.3));
+console.log(Math.floor('23.9'));
+
+console.log(Math.trunc(-23.3));
+console.log(Math.floor(-23.3));
+
+
+
+//Rounding decimals
+console.log(typeof (2.3).toFixed(3));
+console.log((2.3).toFixed(0));
+console.log((2.3).toFixed(3)); //rellena los faltantes con 0
+
+
 
 

@@ -354,14 +354,55 @@ labelBalance.addEventListener('click', function(){
  * Numeric separators
  */
 
-const diameter = 287_988_000_000;
-console.log(diameter);
+// const diameter = 287_988_000_000;
+// console.log(diameter);
 
-const priceCents = 345_2323;
-console.log(priceCents);
+// const priceCents = 345_2323;
+// console.log(priceCents);
 
-const transferFee = 15_0;
-const transferFee2 = 1_000;
+// const transferFee = 15_0;
+// const transferFee2 = 1_000;
 
-const PI = 3.14_15 
-console.log(PI);
+// const PI = 3.14_15 
+// console.log(PI);
+
+/**
+ * BIG INT
+ */
+
+console.log(2 ** 53 -1);
+//este es el número mas grande que puede trabajarse de manera segura en JS
+// no es que no pueda representar mas despues de éste, solo que los resultados
+//no seran seguros
+console.log(Number.MAX_SAFE_INTEGER);
+
+console.log(2 ** 53 + 1);
+console.log(2 ** 53 + 2);
+console.log(2 ** 53 + 3);
+console.log(2 ** 53 + 4);
+console.log(2 ** 53 + 5);
+
+//con esto podemos indicamos que tenemos un numero muy grande con el que trabajar
+//pasando por alto la validacion de max_safe_integer
+console.log(345345623645634664563456345632778967896773412326678678467n);
+console.log(BigInt(345345623645634664563456345632778967896773412326678678467) > Number.MAX_SAFE_INTEGER);
+
+//Operations
+
+console.log(10000n+10000n);
+console.log(345345623645634664563456345632778967896773412326678678467n * 100000n);
+
+//no es posible operar BigInt con numeros regulares
+
+const huge = 234234234234654456786745363745456345n
+const num =  23
+// console.log(huge * num);
+
+//pero si podemos compararlos
+console.log(20n > 0);
+console.log(20n === 20); //esto da false porque un BigInt no es un regular number
+
+//Division
+
+console.log(20n/3n);
+console.log(20/3);

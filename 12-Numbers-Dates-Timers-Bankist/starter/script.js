@@ -272,17 +272,17 @@ btnSort.addEventListener('click', function (e) {
  */
 
 //raiz cuadrada
-console.log(Math.sqrt(25));
-console.log(25 ** (1/2));
+// console.log(Math.sqrt(25));
+// console.log(25 ** (1/2));
 
 //número máximo
 let testNumbers = [2,3,5,6,14,53,67,678,8,5,23,1];
 let testNumbersWithS = [2,3,5,6,14,53,67,678,8,5,23,1,'679']
 let testNumbersWithPx = [2,3,5,6,14,53,67,678,8,5,23,1,'679', '777px']
 
-console.log(Math.max(...testNumbers));
-console.log(Math.max(...testNumbersWithS));
-console.log(Math.max(...testNumbersWithPx));
+// console.log(Math.max(...testNumbers));
+// console.log(Math.max(...testNumbersWithS));
+// console.log(Math.max(...testNumbersWithPx));
 
 /**
  * por cada número dado lo parsea a number, si el mayor es NaN ese será retornado
@@ -290,7 +290,7 @@ console.log(Math.max(...testNumbersWithPx));
 
 //obtener el área de una circunferencia
 //teniendo el radio
-console.log(Math.PI * Number.parseFloat('10px') ** 2);
+// console.log(Math.PI * Number.parseFloat('10px') ** 2);
 
 //Obtener un numero random
 
@@ -298,32 +298,70 @@ console.log(Math.PI * Number.parseFloat('10px') ** 2);
 
 //obtener un numero random entre dos numeros dados
 const randomInt = (min = 1, max = 10) => Math.trunc(Math.random() * (max - min) + 1) + min;
-console.log(randomInt(5,10));
+// console.log(randomInt(5,10));
 
 //Rounding integers
 
 //delete any float after the comma
-console.log(Math.trunc(23.2));
-//round number to up
-console.log(Math.round(23.5));
+// console.log(Math.trunc(23.2));
+// //round number to up
+// console.log(Math.round(23.5));
 
-console.log(Math.ceil(23.3));
-console.log(Math.ceil(23.9));
+// console.log(Math.ceil(23.3));
+// console.log(Math.ceil(23.9));
 
 
-console.log(Math.floor(23.3));
-console.log(Math.floor('23.9'));
+// console.log(Math.floor(23.3));
+// console.log(Math.floor('23.9'));
 
-console.log(Math.trunc(-23.3));
-console.log(Math.floor(-23.3));
+// console.log(Math.trunc(-23.3));
+// console.log(Math.floor(-23.3));
 
 
 
 //Rounding decimals
-console.log(typeof (2.3).toFixed(3));
-console.log((2.3).toFixed(0));
-console.log((2.3).toFixed(3)); //rellena los faltantes con 0
+// console.log(typeof (2.3).toFixed(3));
+// console.log((2.3).toFixed(0));
+// console.log((2.3).toFixed(3)); //rellena los faltantes con 0
 
 
+/**
+ * the remainder operator
+ */
+
+//return the rest the divide 
+
+// console.log(5%2);
+// console.log(5/2);
+// console.log(8%2);
+
+//podemos saber si un numero es par o impar
+const isEven = (n) => n % 2 === 0;
+
+// console.log(isEven(6));
+// console.log(isEven(6));
+// console.log(isEven(5));
+// console.log(isEven(5));
+
+labelBalance.addEventListener('click', function(){
+  [...document.querySelectorAll('.movements__row')].forEach(function(row,i){
+    if(i % 2 == 0) row.style.backgroundColor = 'orangered'
+  })
+})
 
 
+/**
+ * Numeric separators
+ */
+
+const diameter = 287_988_000_000;
+console.log(diameter);
+
+const priceCents = 345_2323;
+console.log(priceCents);
+
+const transferFee = 15_0;
+const transferFee2 = 1_000;
+
+const PI = 3.14_15 
+console.log(PI);

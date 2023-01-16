@@ -11,7 +11,7 @@
 
 const account1 = {
   owner: 'Jonas Schmedtmann',
-  movements: [200, 455.23, -306.5, 25000, -642.21, -133.9, 79.97, 1300],
+  movements: [200, 455.23, -306.5, 25000, -642.21, -133.9, 79.97, 1300, 5050505,2323232],
   interestRate: 1.2, // %
   pin: 1111,
 
@@ -24,9 +24,11 @@ const account1 = {
     '2020-05-27T17:01:17.194Z',
     '2020-07-11T23:36:17.929Z',
     '2020-07-12T10:51:36.790Z',
+    '2023-01-14T10:51:36.790Z',
+    '2022-12-20T10:51:36.790Z',
   ],
   currency: 'EUR',
-  locale: 'pt-PT', // de-DE
+  locale: 'es-Es' //'pt-PT', // de-DE
 };
 
 const account2 = {
@@ -81,16 +83,38 @@ const inputClosePin = document.querySelector('.form__input--pin');
 /////////////////////////////////////////////////
 // Functions
 
-const displayDate = function(date = new Date(), short = false){
-  const day = `${date.getDate()}`.padStart(2,0);
-  const month = `${date.getMonth() + 1}`.padStart(2,0);
-  const year = date.getFullYear();
-  const hour = date.getHours();
-  const min = date.getMinutes();
-  return `${day}/${month}/${year} ${(!short) ? `${hour}: ${min}` : ''} `
+const displayDate = function(date = new Date(), locale, where = 'header'){
+  const calcDaysPassed = (date1,date2)=> Math.round(Math.abs(date2-date1) / (1000 * 60 * 60 * 24))
+  const daysPassed = calcDaysPassed(new Date(), date);
+  const options = {
+    hour: 'numeric',
+    minute: 'numeric',
+    day: 'numeric',
+    month:'long',
+    year:'numeric',
+    weekday: 'long'
+  } 
+  if(where != 'header'){
+    if(daysPassed === 0)return `Today`
+    else if(daysPassed === 1)return `Yesterday`
+    else if(daysPassed <= 7)return ` ${daysPassed} days ago`
+    else {
+      // const day = `${date.getDate()}`.padStart(2,0);
+      // const month = `${date.getMonth() + 1}`.padStart(2,0);
+      // const year = date.getFullYear();
+      // const hour = date.getHours();
+      // const min = date.getMinutes();
+      // return `${day}/${month}/${year} ${(!short) ? `${hour}: ${min}` : ''} `
+ 
+      return new Intl.DateTimeFormat(locale).format(date);
+    }
+  } else {
+    return new Intl.DateTimeFormat(locale, options).format(date);
+  }
 
+
+  
 }
-
 const displayMovements = function (acc, sort = false) {
   containerMovements.innerHTML = '';
 
@@ -99,7 +123,7 @@ const displayMovements = function (acc, sort = false) {
   movs.forEach(function (mov, i) {
     const type = mov > 0 ? 'deposit' : 'withdrawal';
     let date = new Date(acc.movementsDates[i]);
-    date = displayDate(date, true)
+    date = displayDate(date, acc.locale, 'movements')
 
     const html = `
       <div class="movements__row">
@@ -176,9 +200,7 @@ containerApp.style.opacity = 100;
 //
 
 let date = new Date();
-date = displayDate(date)
-
-labelDate.textContent =  date;
+labelDate.textContent =  displayDate(date,currentAccount.locale, 'header');
 
 btnLogin.addEventListener('click', function (e) {
   // Prevent form from submitting
@@ -454,19 +476,36 @@ const now = new Date()
 
 //Working with Dates
 
-const future = new Date(2037,10,31, 15, 23)
-console.log(future);
-console.log(future.getFullYear());
-console.log(future.getMonth());
-console.log(future.getDate()); //dia 
-console.log(future.getDay()); //dia de la semana 1-5
-console.log(future.getHours());
-console.log(future.getSeconds());
-console.log(future.getMinutes());
-console.log(future.getUTCDate());
-console.log(future.getTime());
+// const future = new Date(2037,10,31, 15, 23)
+// console.log(future);
+// console.log(future.getFullYear());
+// console.log(future.getMonth());
+// console.log(future.getDate()); //dia 
+// console.log(future.getDay()); //dia de la semana 1-5
+// console.log(future.getHours());
+// console.log(future.getSeconds());
+// console.log(future.getMinutes());
+// console.log(future.getUTCDate());
+// console.log(future.getTime());
 
-console.log(Date.now());
+// console.log(Date.now());
 
-future.setFullYear(2040) //hay un set por cada parte de la fecha
-console.log(future);
+// future.setFullYear(2040) //hay un set por cada parte de la fecha
+// console.log(future);
+
+
+/**
+ * Operations with Dates
+*/
+
+// const future = new Date()
+// console.log(+future);
+
+// const calcDaysPassed = (date1,date2)=> Math.abs(date2-date1) / (1000 * 60 * 60 * 24)
+
+// console.log(calcDaysPassed(new Date(2023,1,15), new Date(2023,1,25)))
+
+
+/**
+ * 
+*/

@@ -28,7 +28,7 @@ const account1 = {
     '2022-12-20T10:51:36.790Z',
   ],
   currency: 'EUR',
-  locale: 'es-Es' //'pt-PT', // de-DE
+  locale: 'pt-PT'//'es-Es'  // de-DE
 };
 
 const account2 = {
@@ -111,10 +111,13 @@ const displayDate = function(date = new Date(), locale, where = 'header'){
   } else {
     return new Intl.DateTimeFormat(locale, options).format(date);
   }
-
-
-  
 }
+const numberFormat = function(locale,currency, value) {
+  return new Intl.NumberFormat(locale, {
+    style:'currency', 
+    currency: currency
+  }).format(value)
+};
 const displayMovements = function (acc, sort = false) {
   containerMovements.innerHTML = '';
 
@@ -123,13 +126,14 @@ const displayMovements = function (acc, sort = false) {
   movs.forEach(function (mov, i) {
     const type = mov > 0 ? 'deposit' : 'withdrawal';
     let date = new Date(acc.movementsDates[i]);
-    date = displayDate(date, acc.locale, 'movements')
-
+    date = displayDate(date, acc.locale, 'movements');
+    
+    const formattedMov =  numberFormat(acc.locale, acc.currency, mov)
     const html = `
       <div class="movements__row">
         <div class="movements__type movements__type--${type}">${i + 1} ${type}</div>
         <div class="movements__date">${date}</div>
-        <div class="movements__value">${mov.toFixed(2)}€</div>
+        <div class="movements__value">${mov.toFixed(2), formattedMov}</div>
       </div>
     `;
 
@@ -138,8 +142,9 @@ const displayMovements = function (acc, sort = false) {
 };
 
 const calcDisplayBalance = function (acc) {
-  acc.balance = acc.movements.reduce((acc, mov) => acc + mov, 0);
-  labelBalance.textContent = `${acc.balance.toFixed(2)}€`;
+  acc.balance = acc.movements.reduce((acc, mov) => acc + mov, 0); 
+  let formattedBalance = numberFormat(acc.locale, acc.currency, acc.balance)
+  labelBalance.textContent = `${acc.balance.toFixed(2), formattedBalance}`;
 };
 
 const calcDisplaySummary = function (acc) {
@@ -147,13 +152,15 @@ const calcDisplaySummary = function (acc) {
     .filter(mov => mov > 0)
     .reduce((acc, mov) => acc + mov, 0)
   );
-  labelSumIn.textContent = `${incomes.toFixed(2)}€`;
-
+  let formattedIncomes = numberFormat(acc.locale, acc.currency, incomes)
+  labelSumIn.textContent = `${incomes.toFixed(2), formattedIncomes}`;
+  
   const out = (acc.movements
     .filter(mov => mov < 0)
     .reduce((acc, mov) => acc + mov, 0)
   );
-  labelSumOut.textContent = `${Math.abs(out).toFixed(2)}€`;
+  let formattedOut = numberFormat(acc.locale, acc.currency, out)
+  labelSumOut.textContent = `${Math.abs(out).toFixed(2), formattedOut}`;
 
   const interest = (acc.movements
     .filter(mov => mov > 0)
@@ -164,7 +171,8 @@ const calcDisplaySummary = function (acc) {
     })
     .reduce((acc, int) => acc + int, 0)
   );
-  labelSumInterest.textContent = `${interest.toFixed(2)}€`;
+  let formattedInterest = numberFormat(acc.locale, acc.currency, interest)
+  labelSumInterest.textContent = `${interest.toFixed(2), formattedInterest}`;
 };
 
 const createUsernames = function (accs) {
@@ -443,8 +451,8 @@ labelBalance.addEventListener('click', function(){
 
 //no es posible operar BigInt con numeros regulares
 
-const huge = 234234234234654456786745363745456345n
-const num =  23
+// const huge = 234234234234654456786745363745456345n
+// const num =  23
 // console.log(huge * num);
 
 //pero si podemos compararlos
@@ -507,5 +515,18 @@ const now = new Date()
 
 
 /**
- * 
+ * Internationalizing numbers
 */
+const optionsNumber = {
+  style: 'currency',//'percent',//'unit',
+  unit: 'celsius',//'mile-per-hour',
+  currency: 'USD',
+  useGrouping: true
+}
+
+const num = 23234234234
+console.log(new Intl.NumberFormat('es-Es', optionsNumber).format(num));
+console.log(new Intl.NumberFormat('en-Us',optionsNumber).format(num));
+console.log(new Intl.NumberFormat('de-DE', optionsNumber).format(num));
+console.log(new Intl.NumberFormat('ar-SY', optionsNumber).format(num));
+console.log(new Intl.NumberFormat(navigator.language, optionsNumber).format(num));

@@ -129,11 +129,12 @@ const displayMovements = function (acc, sort = false) {
     date = displayDate(date, acc.locale, 'movements');
     
     const formattedMov =  numberFormat(acc.locale, acc.currency, mov)
+    console.log(formattedMov);
     const html = `
       <div class="movements__row">
         <div class="movements__type movements__type--${type}">${i + 1} ${type}</div>
         <div class="movements__date">${date}</div>
-        <div class="movements__value">${mov.toFixed(2), formattedMov}</div>
+        <div class="movements__value">${formattedMov}</div>
       </div>
     `;
 
@@ -144,7 +145,7 @@ const displayMovements = function (acc, sort = false) {
 const calcDisplayBalance = function (acc) {
   acc.balance = acc.movements.reduce((acc, mov) => acc + mov, 0); 
   let formattedBalance = numberFormat(acc.locale, acc.currency, acc.balance)
-  labelBalance.textContent = `${acc.balance.toFixed(2), formattedBalance}`;
+  labelBalance.textContent = `${formattedBalance}`;
 };
 
 const calcDisplaySummary = function (acc) {
@@ -153,14 +154,14 @@ const calcDisplaySummary = function (acc) {
     .reduce((acc, mov) => acc + mov, 0)
   );
   let formattedIncomes = numberFormat(acc.locale, acc.currency, incomes)
-  labelSumIn.textContent = `${incomes.toFixed(2), formattedIncomes}`;
+  labelSumIn.textContent = `${formattedIncomes}`;
   
   const out = (acc.movements
     .filter(mov => mov < 0)
     .reduce((acc, mov) => acc + mov, 0)
   );
   let formattedOut = numberFormat(acc.locale, acc.currency, out)
-  labelSumOut.textContent = `${Math.abs(out).toFixed(2), formattedOut}`;
+  labelSumOut.textContent = `${formattedOut}`;
 
   const interest = (acc.movements
     .filter(mov => mov > 0)
@@ -172,7 +173,7 @@ const calcDisplaySummary = function (acc) {
     .reduce((acc, int) => acc + int, 0)
   );
   let formattedInterest = numberFormat(acc.locale, acc.currency, interest)
-  labelSumInterest.textContent = `${interest.toFixed(2), formattedInterest}`;
+  labelSumInterest.textContent = `${formattedInterest}`;
 };
 
 const createUsernames = function (accs) {

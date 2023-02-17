@@ -129,7 +129,6 @@ const displayMovements = function (acc, sort = false) {
     date = displayDate(date, acc.locale, 'movements');
     
     const formattedMov =  numberFormat(acc.locale, acc.currency, mov)
-    console.log(formattedMov);
     const html = `
       <div class="movements__row">
         <div class="movements__type movements__type--${type}">${i + 1} ${type}</div>
@@ -198,27 +197,74 @@ const updateUI = function (acc) {
   calcDisplaySummary(acc);
 };
 
+const closeSession = function(){
+  if (
+    inputCloseUsername.value === currentAccount.username &&
+    Number(inputClosePin.value) === currentAccount.pin
+  ) {
+    const index = accounts.findIndex(
+      acc => acc.username === currentAccount.username
+    );
+    console.log(index);
+    // .indexOf(23)
+
+    // Delete account
+    accounts.splice(index, 1);
+
+    // Hide UI
+    containerApp.style.opacity = 0;
+  }
+
+  inputCloseUsername.value = inputClosePin.value = '';
+}
+
+const startLogOutTimer = function(){
+  //Set time to 5 minutes
+  let time = 20;
+  
+  const tick = function(){
+    const min = String(Math.trunc(time / 60)).padStart(2,0);
+    const seconds =  String(time % 60).padStart(2,0);
+    //in Each call, print the remaining time to UI
+    labelTimer.textContent = `${min}:${seconds}`;
+
+
+    //When 0 seconds, stop timer and log out user
+    if(time === 0){
+      clearInterval(timer);
+      labelWelcome.textContent = 'Log in to get started';
+      containerApp.style.opacity = 0;
+    }
+
+    //Decrease 1s
+    time--;
+  } 
+  //call the timer every second
+  const timer = setInterval(tick, 1000);
+
+  return timer;
+}
+
 ///////////////////////////////////////
 // Event handlers
-let currentAccount;
+let currentAccount, timer;
 
 //Fake Always logged in
-currentAccount = account1;
-updateUI(currentAccount)
-containerApp.style.opacity = 100;
-//
+// currentAccount = account1;
+// updateUI(currentAccount)
+// containerApp.style.opacity = 100;
 
-let date = new Date();
-labelDate.textContent =  displayDate(date,currentAccount.locale, 'header');
 
 btnLogin.addEventListener('click', function (e) {
   // Prevent form from submitting
   e.preventDefault();
-
   currentAccount = accounts.find(
     acc => acc.username === inputLoginUsername.value
   );
   console.log(currentAccount);
+
+  let date = new Date();
+  labelDate.textContent =  displayDate(date,currentAccount.locale, 'header');
 
   if (currentAccount?.pin === Number(inputLoginPin.value)) {
     // Display UI and message
@@ -231,8 +277,18 @@ btnLogin.addEventListener('click', function (e) {
     inputLoginUsername.value = inputLoginPin.value = '';
     inputLoginPin.blur();
 
+    //Timer
+    if(timer) clearInterval(timer)
+    
+    //initialice Set time Out
+    timer = startLogOutTimer();
+    
     // Update UI
     updateUI(currentAccount);
+    
+    //Reset timer
+    // clearInterval(timer);
+    // timer = startLogOutTimer();
   }
 });
 
@@ -258,6 +314,10 @@ btnTransfer.addEventListener('click', function (e) {
 
     // Update UI
     updateUI(currentAccount);
+
+    //Reset timer
+    clearInterval(timer);
+    timer = startLogOutTimer();
   }
 });
 
@@ -267,18 +327,25 @@ btnLoan.addEventListener('click', function (e) {
   const amount = Math.floor(inputLoanAmount.value);
 
   if (amount > 0 && currentAccount.movements.some(mov => mov >= amount * 0.1)) {
-    // Add movement
-    currentAccount.movements.push(amount);
-    currentAccount.movementsDates.push(new Date().toISOString());
-
-    // Update UI
-    updateUI(currentAccount);
+    setTimeout(() => {
+      // Add movement
+      currentAccount.movements.push(amount);
+      currentAccount.movementsDates.push(new Date().toISOString());
+      // Update UI
+      updateUI(currentAccount);
+      //Reset timer
+      clearInterval(timer);
+      timer = startLogOutTimer();
+    }, 1500);
   }
   inputLoanAmount.value = '';
+
 });
 
 btnClose.addEventListener('click', function (e) {
   e.preventDefault();
+
+  closeSession()
 
   if (
     inputCloseUsername.value === currentAccount.username &&
@@ -531,3 +598,40 @@ console.log(new Intl.NumberFormat('en-Us',optionsNumber).format(num));
 console.log(new Intl.NumberFormat('de-DE', optionsNumber).format(num));
 console.log(new Intl.NumberFormat('ar-SY', optionsNumber).format(num));
 console.log(new Intl.NumberFormat(navigator.language, optionsNumber).format(num));
+
+/**
+ * SetTimeOut
+ */
+const ingredients =['olives','spinach']
+//normal comportamiento
+setTimeout(() => {
+  console.log("Despues de 3 segundos, me ejecuto");
+}, 3000);
+
+//Pasando parametros a la función
+
+const pizaTimer = setTimeout((ing1, ing2) => {
+  console.log(`Here is your Pizza with ${ing1} and ${ing2}`)
+}, 4000, ...ingredients);
+
+//limpiar el intervalo
+if(ingredients.includes('spinach')) clearTimeout(pizaTimer)
+
+
+
+/**
+ * Set Interval
+ */
+
+let nowo = ''
+let seconds = 0
+const intervalClock = setInterval(() => {
+  nowo = new Date();
+  let hour = nowo.getMinutes();
+  let minutes = nowo.getHours();
+  seconds = nowo.getSeconds()
+
+  // console.log(`${hour}:${minutes}:${seconds}`)
+}, 1000);
+
+if(seconds == 59) clearInterval(intervalClock)

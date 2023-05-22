@@ -97,3 +97,69 @@ document
     cookieMessage.remove();
   }
 )
+
+/**
+ * Styles, Attributes and Clases
+ */
+
+//these styles are written in line of the tag
+cookieMessage.style.backgroundColor = '#37383d';
+cookieMessage.style.width = '120%';
+
+console.log(cookieMessage.style.color)
+console.log(cookieMessage.style.backgroundColor)
+
+
+//gets the style defined in the style sheet
+console.log(getComputedStyle(cookieMessage))
+console.log(getComputedStyle(cookieMessage).color);
+console.log(getComputedStyle(cookieMessage).height);
+
+cookieMessage.style.height = Number.parseInt(
+  getComputedStyle(cookieMessage).height, 10
+) + 30 + 'px'
+
+console.log(cookieMessage.style.height);
+
+document.documentElement.style.setProperty
+('--color-primary', 'orangered')
+
+
+//Attributes
+const logo = document.querySelector('.nav__logo');
+console.log(logo.src)
+console.log(logo.alt)
+console.log(logo.className)
+
+logo.alt = 'Beautifull minimalist logo'
+
+console.log(logo.alt)
+//Non - standar
+console.log(logo.designer)
+console.log(logo.getAttribute('designer'))
+logo.setAttribute('company','Bankist')
+
+
+console.log(logo.src) //absolute route
+console.log(logo.getAttribute('src'))//relative route
+
+
+const link = document.querySelector('.nav__link--btn');
+
+console.log(link.href)
+console.log(link.getAttribute('href'))
+
+//Data attributes
+//camelCase
+console.log(logo.dataset.versionNumber)
+
+// Classes
+
+logo.classList.add('c', 'k')
+logo.classList.remove('c', 'k')
+logo.classList.toggle('c', 'k')
+logo.classList.contains('c', 'k')
+
+//Dont'use
+//this remove the all class names
+logo.className = 'Anthony'

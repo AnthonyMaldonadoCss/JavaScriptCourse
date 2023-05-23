@@ -163,3 +163,74 @@ logo.classList.contains('c', 'k')
 //Dont'use
 //this remove the all class names
 logo.className = 'Anthony'
+
+
+/**
+ * Implementin Smooth Scrolling
+ */
+
+const btnScrollTo = document.querySelector('.btn--scroll-to');
+const section1 = document.querySelector('#section--1');
+
+btnScrollTo.addEventListener('click', function(e){
+  e.preventDefault();
+  const s1coords = section1.getBoundingClientRect();
+  console.log(s1coords)
+
+  console.log(e.target.getBoundingClientRect())
+
+  console.log(`Current Scroll (X/Y)`, window.pageXOffset, pageYOffset)
+
+  // window.scrollTo(s1coords.left + window.pageXOffset, s1coords.top + window.pageYOffset)
+
+  // window.scrollTo({
+    // left: s1coords.left + window.pageXOffset, 
+    // top: s1coords.top + window.pageYOffset,
+    // behavior: 'smooth'
+  // });
+
+  section1.scrollIntoView({
+    behavior: 'smooth'
+  })
+})
+
+/**
+ * Types of Events and Events Handlers
+ */
+
+const h1 = document.querySelector('h1');
+// h1.addEventListener('mouseenter', function(e){
+//   confirm('AddEventListener: Great! You are reading the heading :D')
+// })
+
+const h1Fuction = function(e){
+  confirm('AddEventListener: Great! You are reading the heading :D')
+}
+
+h1.addEventListener('mouseenter', h1Fuction)
+
+setTimeout(() => 
+  h1.removeEventListener('mouseenter', h1Fuction)  
+, 3000);
+
+/**
+ * Event propagation: Bubbling and Capturing
+ */
+
+/**
+ *  Cuando generamos una acción en un elemento del DOM
+ *    # Este evento pasa a la fase de Captura, y en realidad este evento
+ *    # se está generando en la raiz del documento y va a ir iterando sobre los elementos padres
+ *    # hasta llegar a el elemento que tiene el addEventListener, a esta segunda etapa se le conoce como
+ *    # Target Phase
+ *    # y por último cuando ese evento realiza una accion, como por ejemplo un alert
+ *    # este evento irá escalando por los elementos padre de nuevo al document para ejecutarse, 
+ *    # a esta fase se le conoce como Bubbling phase
+ *    
+ *    # Lo importante de esto es que si escuchamos el evento en algun elemento padre del evento hijo que genero 
+ *    # la accion, es posoble que capturemos el evento
+ *    
+ *    #para evitar este tipo de comportamiento, ocupamos el e.stopPropagation()
+ *
+ */
+

@@ -106,20 +106,20 @@ document
 cookieMessage.style.backgroundColor = '#37383d';
 cookieMessage.style.width = '120%';
 
-console.log(cookieMessage.style.color)
-console.log(cookieMessage.style.backgroundColor)
+// console.log(cookieMessage.style.color)
+// console.log(cookieMessage.style.backgroundColor)
 
 
 //gets the style defined in the style sheet
-console.log(getComputedStyle(cookieMessage))
-console.log(getComputedStyle(cookieMessage).color);
-console.log(getComputedStyle(cookieMessage).height);
+// console.log(getComputedStyle(cookieMessage))
+// console.log(getComputedStyle(cookieMessage).color);
+// console.log(getComputedStyle(cookieMessage).height);
 
 cookieMessage.style.height = Number.parseInt(
   getComputedStyle(cookieMessage).height, 10
 ) + 30 + 'px'
 
-console.log(cookieMessage.style.height);
+// console.log(cookieMessage.style.height);
 
 document.documentElement.style.setProperty
 ('--color-primary', 'orangered')
@@ -127,31 +127,31 @@ document.documentElement.style.setProperty
 
 //Attributes
 const logo = document.querySelector('.nav__logo');
-console.log(logo.src)
-console.log(logo.alt)
-console.log(logo.className)
+// console.log(logo.src)
+// console.log(logo.alt)
+// console.log(logo.className)
 
 logo.alt = 'Beautifull minimalist logo'
 
-console.log(logo.alt)
+// console.log(logo.alt)
 //Non - standar
-console.log(logo.designer)
-console.log(logo.getAttribute('designer'))
+// console.log(logo.designer)
+// console.log(logo.getAttribute('designer'))
 logo.setAttribute('company','Bankist')
 
 
-console.log(logo.src) //absolute route
-console.log(logo.getAttribute('src'))//relative route
+// console.log(logo.src) //absolute route
+// console.log(logo.getAttribute('src'))//relative route
 
 
 const link = document.querySelector('.nav__link--btn');
 
-console.log(link.href)
-console.log(link.getAttribute('href'))
+// console.log(link.href)
+// console.log(link.getAttribute('href'))
 
 //Data attributes
 //camelCase
-console.log(logo.dataset.versionNumber)
+// console.log(logo.dataset.versionNumber)
 
 // Classes
 
@@ -175,11 +175,11 @@ const section1 = document.querySelector('#section--1');
 btnScrollTo.addEventListener('click', function(e){
   e.preventDefault();
   const s1coords = section1.getBoundingClientRect();
-  console.log(s1coords)
+  // console.log(s1coords)
 
-  console.log(e.target.getBoundingClientRect())
+  // console.log(e.target.getBoundingClientRect())
 
-  console.log(`Current Scroll (X/Y)`, window.pageXOffset, pageYOffset)
+  // console.log(`Current Scroll (X/Y)`, window.pageXOffset, pageYOffset)
 
   // window.scrollTo(s1coords.left + window.pageXOffset, s1coords.top + window.pageYOffset)
 
@@ -234,3 +234,37 @@ setTimeout(() =>
  *
  */
 
+
+/**
+ * Event propagation in practice
+*/
+
+const randomInt = (min,max) => 
+  Math.floor(Math.random() * (max - min) + min);
+
+const randomColor = () => 
+`rgb(${randomInt(0,255)},${randomInt(0,255)},${randomInt(0,255)})`;
+
+console.log(randomColor(0,255))
+
+//elemento Padre
+document
+  .querySelector('.nav')
+  .addEventListener('click', function(e){
+  this.style.backgroundColor = randomColor()
+})
+
+//Elemento Padre
+document
+  .querySelector('.nav__links')
+  .addEventListener('click', function(e){
+  this.style.backgroundColor =  randomColor()
+})
+
+//elemento hijo
+document
+  .querySelector('.nav__link')
+  .addEventListener('click', function(e){
+  // e.stopPropagation();
+  this.style.backgroundColor =  randomColor()
+})

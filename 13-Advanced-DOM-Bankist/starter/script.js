@@ -30,6 +30,78 @@ document.addEventListener('keydown', function (e) {
   }
 });
 
+/**
+ * Implementing Smooth Scrolling
+ */
+
+const btnScrollTo = document.querySelector('.btn--scroll-to');
+const section1 = document.querySelector('#section--1');
+
+//Button Scrolling
+btnScrollTo.addEventListener('click', function(e){
+  e.preventDefault();
+  const s1coords = section1.getBoundingClientRect();
+  // console.log(s1coords)
+
+  // console.log(e.target.getBoundingClientRect())
+
+  // console.log(`Current Scroll (X/Y)`, window.pageXOffset, pageYOffset)
+
+  // window.scrollTo(s1coords.left + window.pageXOffset, s1coords.top + window.pageYOffset)
+
+  // window.scrollTo({
+    // left: s1coords.left + window.pageXOffset, 
+    // top: s1coords.top + window.pageYOffset,
+    // behavior: 'smooth'
+  // });
+
+  section1.scrollIntoView({
+    behavior: 'smooth'
+  })
+})
+
+///////////////////
+// Page navigation
+
+// document.querySelectorAll('.nav__link').forEach(function(el){
+//   el.addEventListener('click', function(e){
+//     e.preventDefault();
+    
+//     const id = this.getAttribute('href');
+//     console.log(id)
+
+//     document.querySelector(id).scrollIntoView({
+//       behavior: 'smooth'
+//     })
+
+//   })
+// })
+
+
+//1. Add event listener to comment parent element
+//2. Determine what element originated the event
+//3. 
+
+document
+  .querySelector('.nav__links')
+  .addEventListener('click', function(e){
+  e.preventDefault();
+
+  //Matchin strategy
+  if(e.target.classList.contains('nav__link')){
+    const id = e.target.getAttribute('href');
+    document.querySelector(id).scrollIntoView({
+      behavior: 'smooth'
+    });
+  }
+})
+
+
+
+
+///////////////
+
+
 
 /**
  * Types of selectors
@@ -164,36 +236,6 @@ logo.classList.contains('c', 'k')
 //this remove the all class names
 logo.className = 'Anthony'
 
-
-/**
- * Implementin Smooth Scrolling
- */
-
-const btnScrollTo = document.querySelector('.btn--scroll-to');
-const section1 = document.querySelector('#section--1');
-
-btnScrollTo.addEventListener('click', function(e){
-  e.preventDefault();
-  const s1coords = section1.getBoundingClientRect();
-  // console.log(s1coords)
-
-  // console.log(e.target.getBoundingClientRect())
-
-  // console.log(`Current Scroll (X/Y)`, window.pageXOffset, pageYOffset)
-
-  // window.scrollTo(s1coords.left + window.pageXOffset, s1coords.top + window.pageYOffset)
-
-  // window.scrollTo({
-    // left: s1coords.left + window.pageXOffset, 
-    // top: s1coords.top + window.pageYOffset,
-    // behavior: 'smooth'
-  // });
-
-  section1.scrollIntoView({
-    behavior: 'smooth'
-  })
-})
-
 /**
  * Types of Events and Events Handlers
  */
@@ -245,7 +287,7 @@ const randomInt = (min,max) =>
 const randomColor = () => 
 `rgb(${randomInt(0,255)},${randomInt(0,255)},${randomInt(0,255)})`;
 
-console.log(randomColor(0,255))
+
 
 //elemento Padre
 document
@@ -268,3 +310,8 @@ document
   // e.stopPropagation();
   this.style.backgroundColor =  randomColor()
 })
+
+/**
+ * Event delegation
+*/
+

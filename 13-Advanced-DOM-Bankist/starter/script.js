@@ -1,4 +1,4 @@
-'use strict';
+// 'use strict';
 
 ///////////////////////////////////////
 // Modal window
@@ -50,7 +50,7 @@ btnScrollTo.addEventListener('click', function(e){
   // window.scrollTo(s1coords.left + window.pageXOffset, s1coords.top + window.pageYOffset)
 
   // window.scrollTo({
-    // left: s1coords.left + window.pageXOffset, 
+    // left: s1coords.left + window.pageXOffset,
     // top: s1coords.top + window.pageYOffset,
     // behavior: 'smooth'
   // });
@@ -66,7 +66,7 @@ btnScrollTo.addEventListener('click', function(e){
 // document.querySelectorAll('.nav__link').forEach(function(el){
 //   el.addEventListener('click', function(e){
 //     e.preventDefault();
-    
+
 //     const id = this.getAttribute('href');
 //     console.log(id)
 
@@ -80,7 +80,7 @@ btnScrollTo.addEventListener('click', function(e){
 
 //1. Add event listener to comment parent element
 //2. Determine what element originated the event
-//3. 
+//3.
 
 document
   .querySelector('.nav__links')
@@ -96,6 +96,28 @@ document
   }
 })
 
+//Tabbet component
+
+const tabs = document.querySelectorAll('.operations__tab')
+const tabsContent = document.querySelectorAll('.operations__content')
+const tabsContainer = document.querySelector('.operations__tab-container')
+tabsContainer.addEventListener('click',function(e){
+  const clicked = e.target.closest('.operations__tab');
+  
+  //Guard clause
+  if(!clicked){return}
+
+  //Remove active classes
+  tabs.forEach(t => t.classList.remove('operations__tab--active'))
+  tabsContent.forEach(c => c.classList.remove('operations__content--active'))
+  
+  clicked.classList.add('operations__tab--active')
+
+  //Activated content area
+  (document
+    .querySelector(`.operations__content--${clicked.dataset.tab}`)
+    .classList.add('operations__content--active'))
+})
 
 
 
@@ -130,7 +152,7 @@ const allSections = document.querySelectorAll('.section')
 document.getElementById('section--1')
 
 //select all tags
-//this is reactive, 
+//this is reactive,
   //if before the selection there were 5 items
   //and an item is removed from the DOM
   //then we will have 4
@@ -147,9 +169,9 @@ const allButtons = document.getElementsByTagName('button');
 
 const cookieMessage = document.createElement('div');
 cookieMessage.classList.add('cookie-message');
-cookieMessage.innerHTML  = 
+cookieMessage.innerHTML  =
   `We used cokied for improved functionality and
-  analitycs. 
+  analitycs.
   <button class="btn btn--close-cookie">
     Got it!
   </button>`;
@@ -165,7 +187,7 @@ header.append(cookieMessage)
 document
   .querySelector('.btn--close-cookie')
   .addEventListener('click', function(e){
-    e.preventDefault();  
+    e.preventDefault();
     cookieMessage.remove();
   }
 )
@@ -251,8 +273,8 @@ const h1Fuction = function(e){
 
 h1.addEventListener('mouseenter', h1Fuction)
 
-setTimeout(() => 
-  h1.removeEventListener('mouseenter', h1Fuction)  
+setTimeout(() =>
+  h1.removeEventListener('mouseenter', h1Fuction)
 , 3000);
 
 /**
@@ -266,12 +288,12 @@ setTimeout(() =>
  *    # hasta llegar a el elemento que tiene el addEventListener, a esta segunda etapa se le conoce como
  *    # Target Phase
  *    # y por último cuando ese evento realiza una accion, como por ejemplo un alert
- *    # este evento irá escalando por los elementos padre de nuevo al document para ejecutarse, 
+ *    # este evento irá escalando por los elementos padre de nuevo al document para ejecutarse,
  *    # a esta fase se le conoce como Bubbling phase
- *    
- *    # Lo importante de esto es que si escuchamos el evento en algun elemento padre del evento hijo que genero 
+ *
+ *    # Lo importante de esto es que si escuchamos el evento en algun elemento padre del evento hijo que genero
  *    # la accion, es posoble que capturemos el evento
- *    
+ *
  *    #para evitar este tipo de comportamiento, ocupamos el e.stopPropagation()
  *
  */
@@ -281,10 +303,10 @@ setTimeout(() =>
  * Event propagation in practice
 */
 
-const randomInt = (min,max) => 
+const randomInt = (min,max) =>
   Math.floor(Math.random() * (max - min) + min);
 
-const randomColor = () => 
+const randomColor = () =>
 `rgb(${randomInt(0,255)},${randomInt(0,255)},${randomInt(0,255)})`;
 
 
@@ -312,6 +334,50 @@ document
 })
 
 /**
- * Event delegation
+ * DOM Traversing
 */
 
+const h1_2 = document.querySelector('h1');
+
+//Going downwards: child
+
+console.log(h1_2.querySelectorAll('.highlight'))
+console.log(h1_2.childNodes)
+console.log(h1_2.children)
+h1_2.firstElementChild.style.color = 'white'
+h1_2.lastElementChild.style.color = 'orangered'
+
+//Going upwards: parents
+
+console.log(h1_2.parentNode)
+console.log(h1_2.parentElement)
+console.log(h1_2.lastElementChild.parentNode)
+
+h1_2.closest('header').style.background = 'var(--gradient-secondary)'
+
+h1_2.closest('h1').style.background = 'var(--gradient-primary)'
+
+
+//Going sideways: siblings
+
+console.log(h1_2.previousElementSibling)
+console.log(h1_2.nextElementSibling)
+console.log(h1_2.previousSibling)
+console.log(h1_2.nextSibling)
+
+console.log([...h1_2.parentElement.children])
+console.log(h1_2.parentElement.children)
+
+const el = [...h1_2.parentElement.children]
+
+el.forEach(function(el){
+  if(el !== h1) el.style.transform =  'scale(0.5)'
+})
+const div = document.querySelector('div')
+
+// console.log(div.previousElementSibling)
+// console.log(div.nextElementSibling)
+
+/**
+ * Building a tabbet component
+ */

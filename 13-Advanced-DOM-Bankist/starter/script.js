@@ -216,6 +216,43 @@ allSection.forEach(section => {
 })
 
 
+//lazy loading images
+
+/**
+ * la idea en general es colocar una imagen de poco peso como predeterminada
+ * con el observer identificar cuando esta visible y en ese momento mostrar la verdadera imagen 
+ * en pantalla
+ */
+
+const loadImg = function (entries, observer) {
+  const [ entry ] = entries;
+  const { isIntersecting } = entry;
+  console.log(entry); 
+  if (!isIntersecting) return;
+
+  //replace src with data-source
+  entry.target.src = entry.target.dataset.src;
+
+  //una vez que la imagen este cargada es cuando se elimina el blur
+  //de lo contrario como la imagen aun no carga se vera borrosa
+  entry.target.addEventListener('load', function(){
+    entry.target.classList.remove('lazy-img');
+  });
+
+  observer.unobserve(entry.target);
+
+}
+
+
+const imgTarget = document.querySelectorAll('img[data-src]');
+// console.log({imgTarget});
+const imgObserver = new IntersectionObserver(loadImg, {root: null, threshold: 0, rootMargin: '200px'});
+
+for (let img of imgTarget) {
+  imgObserver.observe(img);
+}
+
+
 ///////////////
 
 
